@@ -44,3 +44,39 @@ async function displayWorks() {
 }
 
 displayWorks();
+
+//Ajout des boutons pour les filtres
+
+
+const buttonContainer = document.getElementById("buttonContainer");
+const buttonNames = ["Tous", "Objets", "Appartements", "Hoetl & restaurants"];
+
+buttonNames.forEach(buttonName => {
+    const button = document.createElement("button");
+    button.textContent = buttonName;
+    button.classList.add("button");
+    buttonContainer.appendChild(button);
+})
+
+
+/*const buttonContainer = document.getElementById("buttonContainer");
+const buttonAll = document.createElement("button");
+buttonAll.textContent = "Tous";
+buttonAll.classList.add("button");
+const buttonObjects = document.createElement("button");
+buttonObjects.textContent = "Objets";
+buttonObjects.classList.add("button");
+const buttonApartments = document.createElement("button");
+buttonApartments.textContent = "Appartements";
+buttonApartments.classList.add("button");
+const buttonRestaurant = document.createElement("button");
+buttonRestaurant.textContent = "Hotels & restaurants";
+buttonRestaurant.classList.add("button");
+
+
+
+
+buttonContainer.appendChild(buttonAll);
+buttonContainer.appendChild(buttonObjects);
+buttonContainer.appendChild(buttonApartments);
+buttonContainer.appendChild(buttonRestaurant);*/
