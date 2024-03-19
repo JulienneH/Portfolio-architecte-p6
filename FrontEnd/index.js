@@ -66,10 +66,34 @@ getCategories().then(categories => {// une fois que getCategorie a reussi à ré
         )
     });
 });
-// fonction pour afficher les travaux selon la catégorie 
-function displayCategories(categorie) {
-    alert("categorie:" + categorie.name);
 
+async function displayCategories(category) {
+    const displayCategories = document.createElement("div");
+
+    const works = await getWorks(); // je récupère les travaux associés à la catégorie
+
+    works.forEach(work => {
+        if (work.categoryId === category.id) { // je vérifie si le work appartient à la catégorie en comparant les id
+            const workElement = document.createElement("figure");
+            displayCategories.classList.add("gallery");
+
+            const imageElement = document.createElement("img");
+            imageElement.src = work.imageUrl;
+            workElement.appendChild(imageElement);
+
+            const titleElement = document.createElement("figcaption");
+            titleElement.innerText = work.title;
+            workElement.appendChild(titleElement);
+
+            displayCategories.appendChild(workElement);
+        }
+    });
+
+    // Supprime tous les travaux qui étaient affichés précédemment 
+    document.getElementById("portfolio").innerHTML = "";
+
+    // j'ajoute les travaux au dom 
+    document.getElementById("portfolio").appendChild(displayCategories);
 }
 
 
