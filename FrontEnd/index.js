@@ -44,12 +44,44 @@ async function displayWorks() {
 }
 
 displayWorks();
+//récupérer les catégories depuis le backend
 
-//Ajout des boutons pour les filtres
+async function getCategories() {
+    const response = await fetch("http://localhost:5678/api/categories");
+    const categories = await response.json();
+    console.log(categories);
+    return categories;
+}
 
 
+getCategories().then(categories => {// une fois que getCategorie a reussi à récupérer les catégorie du backend
+    categories.forEach(categorie => {
+        const button = document.createElement("button"); // je créé un bouton pour chaque catégorie
+        button.textContent = categorie.name;
+        button.classList.add("button");
+        buttonContainer.appendChild(button);
+        button.addEventListener("click", () => {
+            displayCategories(categorie);
+        }
+        )
+    });
+});
+// fonction pour afficher les travaux selon la catégorie 
+function displayCategories(categorie) {
+    alert("categorie:" + categorie.name);
+
+}
+
+
+
+
+
+
+
+
+/*
 const buttonContainer = document.getElementById("buttonContainer");
-const buttonNames = ["Tous", "Objets", "Appartements", "Hoetl & restaurants"];
+const buttonNames = ["Tous", "Objets", "Appartements", "Hotel & restaurants"];
 
 buttonNames.forEach(buttonName => {
     const button = document.createElement("button");
@@ -57,6 +89,15 @@ buttonNames.forEach(buttonName => {
     button.classList.add("button");
     buttonContainer.appendChild(button);
 })
+*/
+
+
+
+
+
+
+
+
 
 
 /*const buttonContainer = document.getElementById("buttonContainer");
@@ -80,3 +121,5 @@ buttonContainer.appendChild(buttonAll);
 buttonContainer.appendChild(buttonObjects);
 buttonContainer.appendChild(buttonApartments);
 buttonContainer.appendChild(buttonRestaurant);*/
+
+
