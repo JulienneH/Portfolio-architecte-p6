@@ -40,7 +40,7 @@ async function displayWorks() {
 
     });
 
-    // Ajout des works dans la section avec l'id portfolio dans le DOM 
+    // Ajout des works dans la section avec l'id worksContainer dans le DOM 
     document.getElementById("worksContainer").appendChild(displayWorks);
 
 }
@@ -53,7 +53,6 @@ displayWorks();
 async function getCategories() {
     const response = await fetch("http://localhost:5678/api/categories");
     const categories = await response.json();
-    console.log(categories);
     return categories;
 }
 function displayAllWorks() {
@@ -85,10 +84,6 @@ getCategories().then(categories => {// une fois que getCategorie a reussi à ré
     });
 
 });
-
-
-
-
 
 async function displayCategories(category) {
     const displayCategories = document.createElement("div");
@@ -123,56 +118,3 @@ async function displayCategories(category) {
     document.getElementById("worksContainer").appendChild(displayCategories);
 
 }
-
-
-
-
-
-
-
-
-
-/*
-const buttonContainer = document.getElementById("buttonContainer");
-const buttonNames = ["Tous", "Objets", "Appartements", "Hotel & restaurants"];
-
-buttonNames.forEach(buttonName => {
-    const button = document.createElement("button");
-    button.textContent = buttonName;
-    button.classList.add("button");
-    buttonContainer.appendChild(button);
-})
-*/
-
-
-
-
-
-
-
-
-
-
-/*const buttonContainer = document.getElementById("buttonContainer");
-const buttonAll = document.createElement("button");
-buttonAll.textContent = "Tous";
-buttonAll.classList.add("button");
-const buttonObjects = document.createElement("button");
-buttonObjects.textContent = "Objets";
-buttonObjects.classList.add("button");
-const buttonApartments = document.createElement("button");
-buttonApartments.textContent = "Appartements";
-buttonApartments.classList.add("button");
-const buttonRestaurant = document.createElement("button");
-buttonRestaurant.textContent = "Hotels & restaurants";
-buttonRestaurant.classList.add("button");
-
-
-
-
-buttonContainer.appendChild(buttonAll);
-buttonContainer.appendChild(buttonObjects);
-buttonContainer.appendChild(buttonApartments);
-buttonContainer.appendChild(buttonRestaurant);*/
-
-
