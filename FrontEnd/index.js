@@ -42,7 +42,10 @@ async function displayWorks() {
 
     // Ajout des works dans la section avec l'id portfolio dans le DOM 
     document.getElementById("worksContainer").appendChild(displayWorks);
+
 }
+
+
 
 displayWorks();
 //récupérer les catégories depuis le backend
@@ -53,7 +56,20 @@ async function getCategories() {
     console.log(categories);
     return categories;
 }
+function displayAllWorks() {
+    const buttonContainer = document.getElementById("buttonContainer");
+    const allButton = document.createElement("button");
+    allButton.textContent = "Tout";
+    allButton.classList.add("button");
+    buttonContainer.appendChild(allButton);
 
+    allButton.addEventListener("click", () => {
+        const worksContainer = document.getElementById("worksContainer");
+        worksContainer.innerHTML = "";
+        displayWorks();
+    });
+}
+displayAllWorks();
 
 getCategories().then(categories => {// une fois que getCategorie a reussi à récupérer les catégorie du backend
 
@@ -70,7 +86,7 @@ getCategories().then(categories => {// une fois que getCategorie a reussi à ré
 
 });
 
-//afficher tous les travaux au clic du bouton tout
+
 
 
 
@@ -107,6 +123,7 @@ async function displayCategories(category) {
     document.getElementById("worksContainer").appendChild(displayCategories);
 
 }
+
 
 
 
