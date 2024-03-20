@@ -37,10 +37,11 @@ async function displayWorks() {
 
         // Ajout de <figure> dans displayWorks donc ajout des works dans le conteneur
         displayWorks.appendChild(workElement);
+
     });
 
     // Ajout des works dans la section avec l'id portfolio dans le DOM 
-    document.getElementById("portfolio").appendChild(displayWorks);
+    document.getElementById("worksContainer").appendChild(displayWorks);
 }
 
 displayWorks();
@@ -55,6 +56,7 @@ async function getCategories() {
 
 
 getCategories().then(categories => {// une fois que getCategorie a reussi à récupérer les catégorie du backend
+
     categories.forEach(categorie => {
         const button = document.createElement("button"); // je créé un bouton pour chaque catégorie
         button.textContent = categorie.name;
@@ -65,7 +67,12 @@ getCategories().then(categories => {// une fois que getCategorie a reussi à ré
         }
         )
     });
+
 });
+
+//afficher tous les travaux au clic du bouton tout
+
+
 
 async function displayCategories(category) {
     const displayCategories = document.createElement("div");
@@ -86,14 +93,19 @@ async function displayCategories(category) {
             workElement.appendChild(titleElement);
 
             displayCategories.appendChild(workElement);
+
         }
+
     });
 
+
     // Supprime tous les travaux qui étaient affichés précédemment 
-    document.getElementById("portfolio").innerHTML = "";
+    document.getElementById("worksContainer").innerHTML = "";
+
 
     // j'ajoute les travaux au dom 
-    document.getElementById("portfolio").appendChild(displayCategories);
+    document.getElementById("worksContainer").appendChild(displayCategories);
+
 }
 
 
