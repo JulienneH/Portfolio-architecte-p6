@@ -1,19 +1,28 @@
 //fonction pour récupérer les works depuis le backend
 // et pour retourner la réponse sous format json
 
-async function getWorks() {
+let Works;
+
+async function fetchWorksFromApi() {
     const response = await fetch("http://localhost:5678/api/works"); //GET par défaut
     const works = await response.json();
     return works;
 }
-getWorks();
+
+async function getWorks() {
+    if (!Works) {
+        Works = await fetchWorksFromApi();
+    }
+    return Works
+}
+
 
 //affichage des travaux dans le DOM 
 async function displayWorks() {
 
     const displayWorks = document.createElement("div");
 
-    // obtenir les travaux à afficher en appelant la fonction getWorks
+    // obtenir les travaux à afficher en appelant la fonction fetchWorksFromApi
     const arrayworks = await getWorks();
 
     //pour chaque travaux je créé une balise figure
@@ -85,10 +94,11 @@ getCategories().then(categories => {// une fois que getCategorie a reussi à ré
 
 });
 
+
 async function displayCategories(category) {
     const displayCategories = document.createElement("div");
 
-    const works = await getWorks(); // je récupère les travaux associés à la catégorie
+    const works = await fetchWorksFromApi(); // je récupère les travaux associés à la catégorie
 
     works.forEach(work => {
         if (work.categoryId === category.id) { // je vérifie si le work appartient à la catégorie en comparant les id
