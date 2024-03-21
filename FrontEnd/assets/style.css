@@ -284,6 +284,10 @@ input[type="submit"] {
 	border-radius: 60px;
 }
 
+input[type="submit"]:hover {
+	cursor: pointer;
+}
+
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
@@ -314,4 +318,23 @@ footer nav ul {
 	background-color: #1D6154;
 	color: white;
 	cursor: pointer;
+}
+
+/*log in page */
+
+.login {
+	padding-top: 100px;
+}
+
+.form {
+	width: 379px;
+	padding-left: 90px;
+}
+
+.forget {
+	text-align: center;
+	color: black;
+	font-size: 16px;
+	padding-top: 30px;
+	padding-bottom: 150px;
 }
