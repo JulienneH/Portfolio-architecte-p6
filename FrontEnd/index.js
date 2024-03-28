@@ -1,6 +1,30 @@
+///changer la mise en page de index.html quand l'utilisateur est connecté 
+document.addEventListener('DOMContentLoaded', function () {
+    // on vérifie si la connexion a réusssi
+    if (localStorage.getItem('connexionReussie') === 'true') {
+        console.log("Connexion réussie");
+        const modify = document.querySelector(".modify");
+        const button = document.getElementById("buttonContainer");
+        const log = document.querySelector(".Log");
+        const editMode = document.querySelector(".edit_mode");
+        if (modify, button) {
+            modify.style.visibility = "visible";
+            button.style.visibility = "hidden";
+            log.textContent = "Logout";
+            editMode.style.visibility = "visible";
+
+        } else {
+            console.error("élément introuvable");
+        }
+        // Supprimer indicateur de connexion 
+        localStorage.removeItem('connexionReussie');
+    } else {
+        console.log("connexion échouée");
+    }
+});
+
 //fonction pour récupérer les works depuis le backend
 // et pour retourner la réponse sous format json
-
 let Works;
 
 async function fetchWorksFromApi() {
@@ -8,7 +32,9 @@ async function fetchWorksFromApi() {
     const works = await response.json();
     return works;
 }
-
+//Pour éviter de faire un second appel à l'API 
+// on fait un appel à l'API seulement si Works est null
+// sinon on récupère la réponse de fetchWorksFromApi
 async function getWorks() {
     if (!Works) {
         Works = await fetchWorksFromApi();
@@ -22,7 +48,7 @@ async function displayWorks() {
 
     const displayWorks = document.createElement("div");
 
-    // obtenir les travaux à afficher en appelant la fonction fetchWorksFromApi
+    // obtenir les travaux à afficher en appelant la fonction getWorks
     const arrayworks = await getWorks();
 
     //pour chaque travaux je créé une balise figure
