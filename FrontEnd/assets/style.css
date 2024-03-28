@@ -146,7 +146,7 @@ body {
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
+	margin: 80px 0
 }
 
 section {
@@ -372,4 +372,21 @@ a {
 
 .modify_icon {
 	padding-right: 15px;
+}
+
+.edit_mode {
+	background-color: black;
+	color: white;
+	text-align: center;
+	height: 59px;
+	width: 1440px;
+	position: absolute;
+	left: 20%;
+	right: 0%;
+	top: 0%;
+	visibility: hidden;
+}
+
+.edit_mode p {
+	padding-top: 20px;
 }
