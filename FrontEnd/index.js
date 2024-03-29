@@ -137,7 +137,7 @@ getCategories().then(categories => {// une fois que getCategorie a reussi à ré
 async function displayCategories(category) {
     const displayCategories = document.createElement("div");
 
-    const works = await fetchWorksFromApi(); // je récupère les travaux associés à la catégorie
+    const works = await getWorks(); // je récupère les travaux associés à la catégorie
 
     works.forEach(work => {
         if (work.categoryId === category.id) { // je vérifie si le work appartient à la catégorie en comparant les id
