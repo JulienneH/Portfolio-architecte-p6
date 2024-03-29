@@ -1,7 +1,8 @@
+
 ///changer la mise en page de index.html quand l'utilisateur est connecté 
 document.addEventListener('DOMContentLoaded', function () {
     // on vérifie si la connexion a réusssi
-    if (localStorage.getItem('connexionReussie') === 'true') {
+    if (localStorage.getItem('token')) {
         console.log("Connexion réussie");
         const modify = document.querySelector(".modify");
         const button = document.getElementById("buttonContainer");
@@ -17,9 +18,9 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error("élément introuvable");
         }
         // Supprimer indicateur de connexion 
-        localStorage.removeItem('connexionReussie');
+        //localStorage.removeItem('connexionReussie');
     } else {
-        console.log("connexion échouée");
+        console.log("Vous n'êtes pas connecté");
     }
 });
 

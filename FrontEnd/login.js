@@ -30,20 +30,19 @@ document.addEventListener('DOMContentLoaded', function () {
             const login = await response.json();
 
             if (login.token) {
-                localStorage.setItem('connexionReussie', 'true');
+                localStorage.setItem('token', login.token);
                 window.location.href = "index.html";
 
             } else {
                 console.error("Token introuvable");
-                msgError.innerHTML = "Identifiant ou mot de passe incorrect";
+                msgError.innerHTML = "Erreur dans l’identifiant ou le mot de passe";
                 localStorage.removeItem('token');
             }
         } catch (error) {
             console.error("Une erreur s'est produite lors de la requête :", error);
             localStorage.removeItem('token');
         }
-        let token = localStorage.getItem('token');
-        console.log("connecté");
+
 
 
     });
