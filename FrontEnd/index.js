@@ -9,11 +9,10 @@ function test() {
         const log = document.querySelector(".Log");
         const editMode = document.querySelector(".edit_mode");
         if (modify, button) {
-            modify.style.visibility = "visible";
-            button.style.visibility = "hidden";
+            modify.classList.add('visible');
+            button.classList.add('hidden');
             log.textContent = "Logout";
-            editMode.style.visibility = "visible";
-
+            editMode.classList.add('visible');
 
         } else {
             console.error("élément introuvable");
@@ -116,10 +115,10 @@ function displayAllWorks() {
         displayWorks();
     });
 }
-displayAllWorks();
+
 
 getCategories().then(categories => {// une fois que getCategorie a reussi à récupérer les catégorie du backend
-
+    displayAllWorks();
     categories.forEach(categorie => {
         const button = document.createElement("button"); // je créé un bouton pour chaque catégorie
         button.textContent = categorie.name;

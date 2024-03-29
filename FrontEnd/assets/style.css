@@ -374,6 +374,8 @@ a {
 	padding-right: 15px;
 }
 
+
+
 .edit_mode {
 	background-color: black;
 	color: white;
@@ -387,6 +389,14 @@ a {
 	visibility: hidden;
 }
 
+.visible {
+	visibility: visible;
+}
+
 .edit_mode p {
 	padding-top: 20px;
+}
+
+.hidden {
+	visibility: hidden;
 }
