@@ -1,8 +1,8 @@
 
 ///changer la mise en page de index.html quand l'utilisateur est connecté 
-function test() {
-    // on vérifie si la connexion a réusssi
-    if (localStorage.getItem('token')) {
+function layoutUpdate() {
+
+    if (localStorage.getItem('token')) {  // on vérifie si la connexion a réusssi
         console.log("Connexion réussie");
         const modify = document.querySelector(".modify");
         const button = document.getElementById("buttonContainer");
@@ -17,17 +17,15 @@ function test() {
         } else {
             console.error("élément introuvable");
         }
-        // Supprimer indicateur de connexion 
-        //localStorage.removeItem('connexionReussie');
     } else {
         console.log("Vous n'êtes pas connecté");
     }
 };
-document.addEventListener('DOMContentLoaded', test);
+document.addEventListener('DOMContentLoaded', layoutUpdate);
 
 //logout function
 const log = document.querySelector(".Log");
-//logout function
+
 log.addEventListener('click', function logout() {
     localStorage.removeItem('token');
     location.reload();
@@ -102,7 +100,8 @@ async function getCategories() {
     const categories = await response.json();
     return categories;
 }
-function displayAllWorks() {
+
+function createAllWorksButton() {
     const buttonContainer = document.getElementById("buttonContainer");
     const allButton = document.createElement("button");
     allButton.textContent = "Tout";
@@ -118,14 +117,14 @@ function displayAllWorks() {
 
 
 getCategories().then(categories => {// une fois que getCategorie a reussi à récupérer les catégorie du backend
-    displayAllWorks();
+    createAllWorksButton();
     categories.forEach(categorie => {
         const button = document.createElement("button"); // je créé un bouton pour chaque catégorie
         button.textContent = categorie.name;
         button.classList.add("button");
         buttonContainer.appendChild(button);
         button.addEventListener("click", () => {
-            displayCategories(categorie);
+            displayWorksByCategory(categorie);
         }
         )
     });
@@ -133,7 +132,7 @@ getCategories().then(categories => {// une fois que getCategorie a reussi à ré
 });
 
 
-async function displayCategories(category) {
+async function displayWorksByCategory(category) {
     const displayCategories = document.createElement("div");
 
     const works = await getWorks(); // je récupère les travaux associés à la catégorie
