@@ -1,6 +1,6 @@
 
 ///changer la mise en page de index.html quand l'utilisateur est connecté 
-document.addEventListener('DOMContentLoaded', function () {
+function test() {
     // on vérifie si la connexion a réusssi
     if (localStorage.getItem('token')) {
         console.log("Connexion réussie");
@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
             log.textContent = "Logout";
             editMode.style.visibility = "visible";
 
+
         } else {
             console.error("élément introuvable");
         }
@@ -22,7 +23,18 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
         console.log("Vous n'êtes pas connecté");
     }
+};
+document.addEventListener('DOMContentLoaded', test);
+
+//logout function
+const log = document.querySelector(".Log");
+//logout function
+log.addEventListener('click', function logout() {
+    localStorage.removeItem('token');
+    location.reload();
+
 });
+
 
 //fonction pour récupérer les works depuis le backend
 // et pour retourner la réponse sous format json
