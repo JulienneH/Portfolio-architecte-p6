@@ -172,6 +172,8 @@ const modale = document.getElementById("modale");
 
 function openModale() {
     modale.classList.remove("hidden");
+    displayWorksInModal();
+
 }
 
 // fermeture de la modale 
@@ -179,4 +181,28 @@ function openModale() {
 const cross = document.querySelector(".cross");
 cross.addEventListener('click', () => {
     modale.classList.add("hidden");
+
 });
+// affichage des travaux dans la modale
+const modalWorks = document.getElementById("modalWorks");
+
+async function displayWorksInModal() {
+    // Vérifier s'il y a déjà des travaux affichés
+    if (modalWorks.children.length > 0) {
+        // S'il y en a, les supprimer
+        modalWorks.innerHTML = '';
+    }
+
+    const displayWorks = document.createElement("div");
+    const arrayworks = await getWorks();
+    arrayworks.forEach((work) => {
+        const modalWork = document.createElement("figure");
+        displayWorks.classList.add("styleWorksModal");
+        const imageElement = document.createElement("img");
+        imageElement.src = work.imageUrl;
+        modalWork.appendChild(imageElement);
+        displayWorks.appendChild(modalWork);
+
+    });
+    modalWorks.appendChild(displayWorks);
+}
