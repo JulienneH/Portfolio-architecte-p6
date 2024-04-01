@@ -174,3 +174,9 @@ function openModale() {
     modale.classList.remove("hidden");
 }
 
+// fermeture de la modale 
+
+const cross = document.querySelector(".cross");
+cross.addEventListener('click', () => {
+    modale.classList.add("hidden");
+});
