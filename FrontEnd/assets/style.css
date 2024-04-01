@@ -203,7 +203,6 @@ li:hover {
 
 #introduction img {
 	display: block;
-	margin: auto;
 	width: 80%;
 }
 
@@ -368,6 +367,7 @@ a {
 	padding-left: 350px;
 	margin-bottom: -22px;
 	visibility: hidden;
+	cursor: pointer;
 }
 
 .modify_icon {
@@ -381,17 +381,22 @@ a {
 	color: white;
 	text-align: center;
 	height: 59px;
-	width: 1440px;
+	width: 100%;
 	position: absolute;
-	left: 20%;
 	right: 0%;
 	top: 0%;
 	visibility: hidden;
 }
 
+.opacity {
+	opacity: 1;
+}
+
 .visible {
 	visibility: visible;
 }
+
+
 
 .edit_mode p {
 	padding-top: 20px;
@@ -399,4 +404,32 @@ a {
 
 .hidden {
 	visibility: hidden;
+}
+
+/*modale */
+
+.modale {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -40%);
+	width: 600px;
+	height: 630px;
+	border-radius: 10px;
+	background-color: white;
+	display: flex;
+	justify-content: center;
+
+}
+
+.display {
+	display: block;
+}
+
+.cross {
+	position: absolute;
+	top: 20px;
+	right: 30px;
+	cursor: pointer;
+	font-size: 24px;
 }

@@ -165,3 +165,12 @@ async function displayWorksByCategory(category) {
     document.getElementById("worksContainer").appendChild(displayCategories);
 
 }
+
+//ouverture de la modale 
+
+const modale = document.getElementById("modale");
+
+function openModale() {
+    modale.classList.remove("hidden");
+}
+
