@@ -186,6 +186,7 @@ cross.addEventListener('click', () => {
 // affichage des travaux dans la modale
 const modalWorks = document.getElementById("modalWorks");
 
+
 async function displayWorksInModal() {
     // Vérifier s'il y a déjà des travaux affichés
     if (modalWorks.children.length > 0) {
@@ -200,6 +201,9 @@ async function displayWorksInModal() {
         displayWorks.classList.add("styleWorksModal");
         const imageElement = document.createElement("img");
         imageElement.src = work.imageUrl;
+        const deleteIcon = document.createElement("i");
+        deleteIcon.classList.add("fa-regular", "fa-trash-can", "delete_logo");
+        modalWork.appendChild(deleteIcon);
         modalWork.appendChild(imageElement);
         displayWorks.appendChild(modalWork);
 
