@@ -420,6 +420,7 @@ a {
 	display: flex;
 	justify-content: center;
 
+
 }
 
 .display {
@@ -432,4 +433,49 @@ a {
 	right: 30px;
 	cursor: pointer;
 	font-size: 24px;
+}
+
+.styleWorksModal {
+	margin-top: 50px;
+	width: 100%;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	grid-column-gap: 20px;
+	grid-row-gap: 20px;
+	margin-bottom: 50px;
+
+}
+
+.styleWorksModal img {
+	width: 100%;
+	height: 100px;
+}
+
+.modal_title {
+	text-align: center;
+	font-size: 26px;
+	padding-top: 60px;
+
+}
+
+.buttonModal {
+	display: flex;
+	width: auto;
+	font-size: 14px;
+	height: 36px;
+}
+
+.line {
+	border: 1px solid #B3B3B3;
+	width: 80%;
+}
+
+/* delete icon*/
+.delete_logo {
+	position: absolute;
+	margin-left: 55px;
+	margin-top: 10px;
+	cursor: pointer;
+
+
 }
