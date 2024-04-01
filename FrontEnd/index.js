@@ -210,3 +210,18 @@ async function displayWorksInModal() {
     });
     modalWorks.appendChild(displayWorks);
 }
+// bouton de la modale 
+const buttonModal = document.querySelector(".buttonModal");
+const titleModal = document.querySelector(".modal_title");
+
+//faire une constante contenant tous les éléments de la 2e page de la modale 
+// modifier avec innerHTML tout le contenu de la modale 
+// ajouter hidden aux travaux 
+
+buttonModal.addEventListener('click', function () {
+    modalWorks.classList.add("hidden");
+    titleModal.innerHTML = "Ajout photo";
+    buttonModal.classList.add("validate_button");
+    buttonModal.value = "Valider";
+
+})
