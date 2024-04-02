@@ -129,6 +129,7 @@ getCategories().then(categories => {// une fois que getCategorie a reussi à ré
         )
     });
 
+
 });
 
 
@@ -179,7 +180,7 @@ const secondPage = document.querySelector(".second_page");
 function openModale() {
     modale.classList.remove("hidden");
     displayWorksInModal();
-
+    console.log("modale ouverte");
 }
 
 // fermeture de la modale 
@@ -216,7 +217,7 @@ async function displayWorksInModal() {
 
     });
     modalWorks.appendChild(displayWorks);
-    firstPage.appendChild(firstPage);
+    // firstPage.appendChild(firstPage);
 
 
 }
@@ -255,5 +256,21 @@ buttonModal.addEventListener('click', function () {
 
     secondPage.appendChild(arrowPrevious);
     modale.appendChild(secondPage);
+
+
 })
+
+const modalCategorie = document.getElementById("catégorie");
+
+modalCategorie.addEventListener('click', function () {
+    modalCategorie.innerHTML = '';
+    getCategories().then(categories => {
+        categories.forEach(category => {
+            let option = document.createElement("option");
+
+            option.textContent = category.name;
+            modalCategorie.appendChild(option); // Ajoutez chaque option à l'élément select
+        });
+    });
+});
 
