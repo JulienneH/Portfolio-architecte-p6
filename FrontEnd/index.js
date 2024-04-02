@@ -213,15 +213,34 @@ async function displayWorksInModal() {
 // bouton de la modale 
 const buttonModal = document.querySelector(".buttonModal");
 const titleModal = document.querySelector(".modal_title");
+const addPhoto = document.querySelector(".modal_form");
 
-//faire une constante contenant tous les éléments de la 2e page de la modale 
-// modifier avec innerHTML tout le contenu de la modale 
-// ajouter hidden aux travaux 
+
 
 buttonModal.addEventListener('click', function () {
     modalWorks.classList.add("hidden");
     titleModal.innerHTML = "Ajout photo";
     buttonModal.classList.add("validate_button");
     buttonModal.value = "Valider";
-
+    addPhoto.classList.remove("hidden");
+    const rectangle = document.createElement("div");
+    const buttonAddPhoto = document.createElement("button");
+    rectangle.classList.add("rectangle");
+    buttonAddPhoto.classList.add("button_add_photo");
+    buttonAddPhoto.innerHTML = "+ Ajouter photo";
+    const iconAddPhoto = document.createElement("i");
+    iconAddPhoto.classList.add("fa-regular", "fa-image", "icon_add_photo");
+    const imageFormat = document.createElement("p");
+    imageFormat.classList.add("image_format");
+    imageFormat.innerHTML = "jpg, png: 4mo max";
+    const arrowPrevious = document.createElement("i");
+    arrowPrevious.classList.add("fa-solid", "fa-arrow-left", "arrow_previous")
+    modale.appendChild(rectangle);
+    modale.appendChild(buttonAddPhoto);
+    modale.appendChild(iconAddPhoto);
+    modale.appendChild(imageFormat);
+    modale.appendChild(arrowPrevious);
 })
+
+
+//<i class="fa-solid fa-arrow-left"></i>
