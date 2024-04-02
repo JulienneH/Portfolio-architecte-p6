@@ -486,9 +486,13 @@ a {
 /* delete icon*/
 .delete_logo {
 	position: absolute;
-	margin-left: 55px;
-	margin-top: 10px;
+	margin-left: 50px;
+	margin-top: 8px;
 	cursor: pointer;
+	color: white;
+	background-color: black;
+	padding: 4px;
+	align-items: center;
 }
 
 /* second page modal */
