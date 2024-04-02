@@ -166,9 +166,15 @@ async function displayWorksByCategory(category) {
 
 }
 
+//variables pour la modale 
+const buttonModal = document.querySelector(".buttonModal");
+const titleModal = document.querySelector(".modal_title");
+
 //ouverture de la modale 
 
 const modale = document.getElementById("modale");
+const firstPage = document.querySelector(".first_page");
+const secondPage = document.querySelector(".second_page");
 
 function openModale() {
     modale.classList.remove("hidden");
@@ -178,11 +184,12 @@ function openModale() {
 
 // fermeture de la modale 
 
-const cross = document.querySelector(".cross");
-cross.addEventListener('click', () => {
-    modale.classList.add("hidden");
-
+modale.addEventListener('click', (event) => {
+    if (event.target.classList.contains('cross')) {
+        modale.classList.add("hidden");
+    }
 });
+
 // affichage des travaux dans la modale
 const modalWorks = document.getElementById("modalWorks");
 
@@ -209,20 +216,19 @@ async function displayWorksInModal() {
 
     });
     modalWorks.appendChild(displayWorks);
+    firstPage.appendChild(firstPage);
+
+
 }
 // bouton de la modale 
-const buttonModal = document.querySelector(".buttonModal");
-const titleModal = document.querySelector(".modal_title");
+
 const addPhoto = document.querySelector(".modal_form");
-
-
+//second page
+//const secondPage = 
 
 buttonModal.addEventListener('click', function () {
-    modalWorks.classList.add("hidden");
-    titleModal.innerHTML = "Ajout photo";
-    buttonModal.classList.add("validate_button");
-    buttonModal.value = "Valider";
-    addPhoto.classList.remove("hidden");
+    firstPage.classList.add("hidden");
+    secondPage.classList.remove("hidden")
     const rectangle = document.createElement("div");
     const buttonAddPhoto = document.createElement("button");
     rectangle.classList.add("rectangle");
@@ -235,12 +241,20 @@ buttonModal.addEventListener('click', function () {
     imageFormat.innerHTML = "jpg, png: 4mo max";
     const arrowPrevious = document.createElement("i");
     arrowPrevious.classList.add("fa-solid", "fa-arrow-left", "arrow_previous")
-    modale.appendChild(rectangle);
-    modale.appendChild(buttonAddPhoto);
-    modale.appendChild(iconAddPhoto);
-    modale.appendChild(imageFormat);
+    arrowPrevious.addEventListener('click', function () {
+        // Supprimer la secondPage de la modalWorks
+        secondPage.classList.add("hidden");
+        firstPage.classList.remove("hidden");
+    });
+
+    secondPage.appendChild(rectangle);
+    secondPage.appendChild(buttonAddPhoto);
+    secondPage.appendChild(iconAddPhoto);
+    secondPage.appendChild(imageFormat);
     modale.appendChild(arrowPrevious);
+
+
+    modale.appendChild(arrowPrevious);
+    modale.appendChild(secondPage);
 })
 
-
-//<i class="fa-solid fa-arrow-left"></i>

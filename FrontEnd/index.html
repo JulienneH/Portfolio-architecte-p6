@@ -64,7 +64,7 @@
 			<div id="worksContainer"></div>
 		</section>
 		<aside id="modale" class="modale hidden">
-			<div class="modal_wrapper">
+			<div class="first_page">
 				<i class="fa-solid fa-xmark cross"></i>
 				<h3 class="modal_title">Galerie Photo</h3>
 				<i class="fa-regular fa-trash-can delete_logo hidden"></i>
@@ -72,11 +72,19 @@
 				<hr class="line">
 				<input type="button" class="buttonModal" id="buttonModal" value="Ajouter une photo">
 			</div>
-			<form action="#" method="post" class="hidden modal_form">
-				<label for="name">Titre</label>
-				<input type="text" name="title" id="title">
-				<label for="text">Catégorie</label>
-				<input type="text" name="catégorie" id="catégorie">
+
+			<div class="second_page hidden">
+				<i class="fa-solid fa-xmark cross"></i>
+				<h3 class="modal_title">Ajout photo</h3>
+
+				<form action="#" method="post" class="modal_form">
+					<label for="name">Titre</label>
+					<input type="text" name="title" id="title">
+					<label for="text">Catégorie</label>
+					<input type="text" name="catégorie" id="catégorie">
+					<hr class="line">
+					<input type="button" class="buttonModal validate_button " id="buttonModal" value="Valider">
+			</div>
 
 		</aside>
 
