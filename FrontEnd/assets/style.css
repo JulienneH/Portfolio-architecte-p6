@@ -502,6 +502,7 @@ a {
 .validate_button {
 	background-color: #A7A7A7;
 	color: white;
+	border: none;
 }
 
 .modal_form {
@@ -515,11 +516,13 @@ a {
 
 }
 
-.modal_form input {
+.modal_form #title,
+select {
 	height: 50px;
 	margin-bottom: 15px;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 	border: none;
+	background-color: white;
 }
 
 .modal_form label {
