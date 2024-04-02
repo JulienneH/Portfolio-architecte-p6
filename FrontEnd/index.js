@@ -239,8 +239,7 @@ buttonModal.addEventListener('click', function () {
     const imageFormat = document.createElement("p");
     imageFormat.classList.add("image_format");
     imageFormat.innerHTML = "jpg, png: 4mo max";
-    const arrowPrevious = document.createElement("i");
-    arrowPrevious.classList.add("fa-solid", "fa-arrow-left", "arrow_previous")
+    const arrowPrevious = document.querySelector(".arrow_previous");
     arrowPrevious.addEventListener('click', function () {
         // Supprimer la secondPage de la modalWorks
         secondPage.classList.add("hidden");
@@ -251,10 +250,10 @@ buttonModal.addEventListener('click', function () {
     secondPage.appendChild(buttonAddPhoto);
     secondPage.appendChild(iconAddPhoto);
     secondPage.appendChild(imageFormat);
-    modale.appendChild(arrowPrevious);
 
 
-    modale.appendChild(arrowPrevious);
+
+    secondPage.appendChild(arrowPrevious);
     modale.appendChild(secondPage);
 })
 
