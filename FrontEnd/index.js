@@ -261,16 +261,20 @@ buttonModal.addEventListener('click', function () {
 })
 
 const modalCategorie = document.getElementById("catégorie");
+const selectedCategorie = document.getElementById("selectedCategory");
 
-modalCategorie.addEventListener('click', function () {
-    modalCategorie.innerHTML = '';
-    getCategories().then(categories => {
-        categories.forEach(category => {
-            let option = document.createElement("option");
+//remplir le menu déroulant
 
-            option.textContent = category.name;
-            modalCategorie.appendChild(option); // Ajoutez chaque option à l'élément select
-        });
+getCategories().then(categories => {
+    categories.forEach(category => {
+        let option = document.createElement("option");
+        option.textContent = category.name;
+        modalCategorie.appendChild(option); // Ajoutez chaque option à l'élément select
     });
 });
+
+//mise à jour du champ de texte quand la catégorie selectionnée change
+modalCategorie.addEventListener('change', function () {
+    selectedCategorie.textContent = modalCategorie.value;
+})
 
