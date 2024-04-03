@@ -480,7 +480,11 @@ a {
 
 .line {
 	border: 1px solid #B3B3B3;
-	width: 80%;
+	width: 60%;
+	position: absolute;
+	top: 520px;
+	align-content: center;
+	right: 20%;
 }
 
 /* delete icon*/
@@ -503,6 +507,7 @@ a {
 	background-color: #A7A7A7;
 	color: white;
 	border: none;
+	margin-top: 460px;
 }
 
 .modal_form {
