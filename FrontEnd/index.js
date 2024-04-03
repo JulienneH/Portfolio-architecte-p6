@@ -167,29 +167,55 @@ async function displayWorksByCategory(category) {
 
 }
 
-//variables pour la modale 
-const buttonModal = document.querySelector(".buttonModal");
-const titleModal = document.querySelector(".modal_title");
+//////////////modale///////////////////
 
-//ouverture de la modale 
+//variables pour la modale 
 
 const modale = document.getElementById("modale");
+const buttonModal = document.querySelector(".buttonModal");
+const titleModal = document.querySelector(".modal_title");
 const firstPage = document.querySelector(".first_page");
 const secondPage = document.querySelector(".second_page");
+//ouverture de la modale
 
 function openModale() {
     modale.classList.remove("hidden");
     displayWorksInModal();
     console.log("modale ouverte");
+
 }
 
-// fermeture de la modale 
+// fermeture de la modale
+
+function closeModale() {
+    modale.classList.add("hidden");
+    console.log("modale fermée");
+}
+
+//ecouteur evenement fermeture modale
+document.addEventListener('click', function (event) {
+    // Si l'élément cliqué n'est pas à l'intérieur de la modale
+    if (!modale.contains(event.target) && !event.target.classList.contains('buttonModal')) {
+        closeModale(); // Fermer la modale
+    }
+});
+
+//ecouteur evenement clic sur modifier 
+
+const modifyButton = document.querySelector(".modify");
+modifyButton.addEventListener('click', function (event) {
+    openModale();
+    event.stopPropagation();
+})
 
 modale.addEventListener('click', (event) => {
     if (event.target.classList.contains('cross')) {
         modale.classList.add("hidden");
     }
 });
+
+
+
 
 // affichage des travaux dans la modale
 const modalWorks = document.getElementById("modalWorks");
@@ -217,19 +243,13 @@ async function displayWorksInModal() {
 
     });
     modalWorks.appendChild(displayWorks);
-    // firstPage.appendChild(firstPage);
-
-
 }
-// bouton de la modale 
 
-const addPhoto = document.querySelector(".modal_form");
-//second page
-//const secondPage = 
+//seconde page modale
 
 buttonModal.addEventListener('click', function () {
     firstPage.classList.add("hidden");
-    secondPage.classList.remove("hidden")
+    secondPage.classList.remove("hidden");
     const rectangle = document.createElement("div");
     const buttonAddPhoto = document.createElement("button");
     rectangle.classList.add("rectangle");
@@ -259,22 +279,32 @@ buttonModal.addEventListener('click', function () {
 
 
 })
+document.addEventListener("DOMContentLoaded", function () {
+    const modalCategorie = document.getElementById("catégorie");
+    let selectedCategorie = document.getElementById("selectedCategory");
 
-const modalCategorie = document.getElementById("catégorie");
-const selectedCategorie = document.getElementById("selectedCategory");
+    //remplir le menu déroulant
 
-//remplir le menu déroulant
-
-getCategories().then(categories => {
-    categories.forEach(category => {
-        let option = document.createElement("option");
-        option.textContent = category.name;
-        modalCategorie.appendChild(option); // Ajoutez chaque option à l'élément select
+    getCategories().then(categories => {
+        categories.forEach(category => {
+            let option = document.createElement("option");
+            option.textContent = category.name;
+            modalCategorie.appendChild(option); // Ajoutez chaque option à l'élément select
+        });
     });
+
+    //mise à jour du champ de texte quand la catégorie selectionnée change
+    modalCategorie.addEventListener('change', function () {
+        selectedCategorie.textContent = modalCategorie.value;
+    })
 });
-
-//mise à jour du champ de texte quand la catégorie selectionnée change
-modalCategorie.addEventListener('change', function () {
-    selectedCategorie.textContent = modalCategorie.value;
-})
-
+/*
+if (!modale.classList.contains("hidden")) {
+    console.log("if fonctionne");
+    document.addEventListener('click', function () {
+        console.log("clic en dehors de la modale");
+    })
+};*/
+if (!firstPage.classList.contains("hidden")) {
+    console.log("if fonctionne");
+}
