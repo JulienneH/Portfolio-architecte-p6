@@ -273,9 +273,6 @@ buttonModal.addEventListener('click', function () {
     secondPage.appendChild(buttonAddPhoto);
     secondPage.appendChild(iconAddPhoto);
     secondPage.appendChild(imageFormat);
-
-
-
     secondPage.appendChild(arrowPrevious);
     modale.appendChild(secondPage);
 
@@ -284,19 +281,17 @@ buttonModal.addEventListener('click', function () {
 document.addEventListener("DOMContentLoaded", function () {
     const modalCategorie = document.getElementById("catégorie");
     let selectedCategorie = document.getElementById("selectedCategory");
-
+    console.log(selectedCategorie);
     //remplir le menu déroulant
 
     getCategories().then(categories => {
         categories.forEach(category => {
             let option = document.createElement("option");
+            option.id = category.id;
             option.textContent = category.name;
-            modalCategorie.appendChild(option); // Ajoutez chaque option à l'élément select
+            modalCategorie.appendChild(option); // Ajouter chaque option à l'élément select
         });
     });
 
-    //mise à jour du champ de texte quand la catégorie selectionnée change
-    modalCategorie.addEventListener('change', function () {
-        selectedCategorie.textContent = modalCategorie.value;
-    })
+
 });
