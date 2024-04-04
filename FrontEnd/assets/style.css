@@ -359,6 +359,10 @@ a {
 	color: black;
 }
 
+.Log {
+	cursor: pointer;
+}
+
 /*styles when user is logged in*/
 .modify {
 	size: 14px;
