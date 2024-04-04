@@ -12,6 +12,7 @@ function layoutUpdate() {
             modify.classList.add('visible');
             button.classList.add('hidden');
             log.textContent = "Logout";
+            log.classList.add('Log');
             editMode.classList.add('visible');
 
         } else {
@@ -189,14 +190,13 @@ function openModale() {
 
 function closeModale() {
     modale.classList.add("hidden");
-    console.log("modale fermée");
+
 }
 
 //ecouteur evenement fermeture modale
 document.addEventListener('click', function (event) {
-    // Si l'élément cliqué n'est pas à l'intérieur de la modale
-    if (!modale.contains(event.target) && !event.target.classList.contains('buttonModal')) {
-        closeModale(); // Fermer la modale
+    if (!modale.contains(event.target)) {
+        closeModale();
     }
 });
 
@@ -207,6 +207,8 @@ modifyButton.addEventListener('click', function (event) {
     openModale();
     event.stopPropagation();
 })
+
+//fermer la modale avec la croix
 
 modale.addEventListener('click', (event) => {
     if (event.target.classList.contains('cross')) {
@@ -298,13 +300,3 @@ document.addEventListener("DOMContentLoaded", function () {
         selectedCategorie.textContent = modalCategorie.value;
     })
 });
-/*
-if (!modale.classList.contains("hidden")) {
-    console.log("if fonctionne");
-    document.addEventListener('click', function () {
-        console.log("clic en dehors de la modale");
-    })
-};*/
-if (!firstPage.classList.contains("hidden")) {
-    console.log("if fonctionne");
-}
