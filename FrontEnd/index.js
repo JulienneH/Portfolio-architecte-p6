@@ -1,4 +1,3 @@
-
 ///changer la mise en page de index.html quand l'utilisateur est connecté 
 function layoutUpdate() {
 
@@ -252,6 +251,8 @@ async function displayWorksInModal() {
         imageElement.src = work.imageUrl;
         const deleteIcon = document.createElement("i");
         deleteIcon.classList.add("fa-regular", "fa-trash-can", "delete_logo");
+        deleteIcon.dataset.workId = work.id;
+        deleteIcon.addEventListener("click", deleteWork);
         modalWork.appendChild(deleteIcon);
         modalWork.appendChild(imageElement);
         displayWorks.appendChild(modalWork);
@@ -308,3 +309,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 });
+//suppression des travaux depuis la modale 
+function deleteWork(event) {
+    if (localStorage.getItem('token')) {
+        const trash = event.currentTarget;
+        const id = trash.dataset.workId;
+        const suppr = {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem('token')
+            }
+        };
+        fetch(`http://localhost:5678/api/works/${id}`, suppr)
+            .then((response) => {
+                if (!response.ok) {
+                    console.log("le delete n'a pas fonctionné");
+                } else {
+                    console.log("le delete a fonctionné");
+                    displayWorksInModal();
+                    displayWorks();
+                }
+            })
+            .catch(error => {
+                console.error("erreur lors de la suppression du travail");
+            });
+
+    } else {
+        console.log("pas de token donc la supression a échoué")
+    }
+}
