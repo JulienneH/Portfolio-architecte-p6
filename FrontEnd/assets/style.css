@@ -586,3 +586,8 @@ select {
 	top: 20px;
 	cursor: pointer;
 }
+
+/* CSS pour appliquer un voile gris semi-transparent sur toute la page */
+.backgroundGrey {
+	background-color: rgba(0, 0, 0, 0.3)
+}

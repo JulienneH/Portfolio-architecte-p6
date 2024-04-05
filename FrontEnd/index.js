@@ -95,12 +95,20 @@ async function displayWorks() {
 
 displayWorks();
 //récupérer les catégories depuis le backend
-
-async function getCategories() {
+let Categories;
+async function fetchCategories() {
     const response = await fetch("http://localhost:5678/api/categories");
     const categories = await response.json();
     return categories;
 }
+async function getCategories() {
+    if (!Categories) {
+        Categories = await fetchCategories();
+    }
+    return Categories;
+}
+
+
 
 function createAllWorksButton() {
     const buttonContainer = document.getElementById("buttonContainer");
@@ -117,7 +125,7 @@ function createAllWorksButton() {
 }
 
 
-getCategories().then(categories => {// une fois que getCategorie a reussi à récupérer les catégorie du backend
+fetchCategories().then(categories => {// une fois que fetchCategories a reussi à récupérer les catégorie du backend
     createAllWorksButton();
     categories.forEach(categorie => {
         const button = document.createElement("button"); // je créé un bouton pour chaque catégorie
@@ -177,12 +185,15 @@ const buttonModal = document.querySelector(".buttonModal");
 const titleModal = document.querySelector(".modal_title");
 const firstPage = document.querySelector(".first_page");
 const secondPage = document.querySelector(".second_page");
+const body = document.body;
 //ouverture de la modale
 
 function openModale() {
+
     modale.classList.remove("hidden");
     displayWorksInModal();
     console.log("modale ouverte");
+    body.classList.add("backgroundGrey");
 
 }
 
@@ -190,6 +201,7 @@ function openModale() {
 
 function closeModale() {
     modale.classList.add("hidden");
+    body.classList.remove("backgroundGrey");
 
 }
 
@@ -203,7 +215,7 @@ document.addEventListener('click', function (event) {
 //ecouteur evenement clic sur modifier 
 
 const modifyButton = document.querySelector(".modify");
-modifyButton.addEventListener('click', function (event) {
+modifyButton.addEventListener('click', function modifyButtonClick(event) {
     openModale();
     event.stopPropagation();
 })
@@ -213,6 +225,7 @@ modifyButton.addEventListener('click', function (event) {
 modale.addEventListener('click', (event) => {
     if (event.target.classList.contains('cross')) {
         modale.classList.add("hidden");
+        body.classList.remove("backgroundGrey");
     }
 });
 
