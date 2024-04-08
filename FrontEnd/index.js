@@ -66,6 +66,7 @@ async function displayWorks() {
     arrayworks.forEach((work) => {
         const workElement = document.createElement("figure");
         displayWorks.classList.add("gallery");
+        workElement.id = `work_${work.id}`;
 
 
         // Créer un élément img pour chaque URL d'image 
@@ -245,7 +246,9 @@ async function displayWorksInModal() {
     const displayWorks = document.createElement("div");
     const arrayworks = await getWorks();
     arrayworks.forEach((work) => {
+
         const modalWork = document.createElement("figure");
+        modalWork.id = `modal_work_${work.id}`;
         displayWorks.classList.add("styleWorksModal");
         const imageElement = document.createElement("img");
         imageElement.src = work.imageUrl;
@@ -327,8 +330,19 @@ function deleteWork(event) {
                     console.log("le delete n'a pas fonctionné");
                 } else {
                     console.log("le delete a fonctionné");
-                    displayWorksInModal();
-                    displayWorks();
+                    const workElement = document.getElementById(`work_${id}`);
+                    if (workElement) {
+                        workElement.remove();
+                    }
+                    else {
+                        console.log("élement de travail non trouvé");
+                    }
+                    const modalWorkElement = document.getElementById(`modal_work_${id}`);
+                    if (modalWorkElement) {
+                        modalWorkElement.remove();
+                    } else {
+                        console.error("travail non trouvé dans la modale");
+                    }
                 }
             })
             .catch(error => {
