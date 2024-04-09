@@ -78,14 +78,16 @@
 				<i class="fa-solid fa-arrow-left arrow_previous"></i>
 				<h3 class="modal_title">Ajout photo</h3>
 
-				<form action="#" method="post" class="modal_form">
+				<form action="#" method="post" class="modal_form" id="submitForm">
 					<label for="name">Titre</label>
 					<input type="text" name="title" id="title">
 					<label for="text">Catégorie</label>
-					<select name="catégorie" id="catégorie"></select><label for="text" id="selectedCategory"></label>
+					<select name="catégorie" id="categorie"></select><label for="text" id="selectedCategory"></label>
+					<label for="image">Image</label>
+					<input type="file" name="image" id="image">
 				</form>
 				<hr class="line">
-				<input type="button" class="buttonModal validate_button " id="buttonModal" value="Valider">
+				<input type="submit" class="buttonModal validate_button " id="buttonValidate" value="Valider">
 			</div>
 
 		</aside>

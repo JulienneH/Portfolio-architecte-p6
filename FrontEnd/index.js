@@ -94,6 +94,8 @@ async function displayWorks() {
 
 
 displayWorks();
+
+////////filtres pour trier par catégorie /////////////
 //récupérer les catégories depuis le backend
 let Categories;
 async function fetchCategories() {
@@ -296,7 +298,7 @@ buttonModal.addEventListener('click', function () {
 
 })
 document.addEventListener("DOMContentLoaded", function () {
-    const modalCategorie = document.getElementById("catégorie");
+    const modalCategorie = document.getElementById("categorie");
     let selectedCategorie = document.getElementById("selectedCategory");
     console.log(selectedCategorie);
     //remplir le menu déroulant
@@ -353,3 +355,20 @@ function deleteWork(event) {
         console.log("pas de token donc la supression a échoué")
     }
 }
+
+/////envoi d'un nouveau projet au backend /////////
+//déclaration des variables pour récupéré les données fournies par l'utilisateur
+
+
+
+const buttonValidate = document.getElementById('buttonValidate');
+
+
+
+buttonValidate.addEventListener("click", function () {
+    const titre = document.getElementById('title').value;
+    const categorieForm = document.getElementById('categorie').value;
+    const image = document.getElementById('image').files[0];
+
+    console.log(titre, categorieForm, image);
+});
