@@ -362,6 +362,14 @@ buttonValidate.addEventListener("click", async function () {
     const titre = document.getElementById('title').value;
     const category = document.getElementById('categorie').value;
     const image = document.getElementById('image').files[0];
+
+    // validation des données saisies par l'utilisateur
+    if (!dataValidator(titre, category, image)) {
+        return;
+    }
+
+
+
     const formData = new FormData();
 
     formData.append('title', titre);
@@ -386,3 +394,18 @@ buttonValidate.addEventListener("click", async function () {
         console.error('Erreur lors de la requête vers API:', error);
     }
 });
+function dataValidator(titre, category, image) {
+    if (!titre.trim()) {
+        alert("Veuillez entrer le titre de votre projet")
+        return false;
+    }
+    if (!category.trim()) {
+        alert(" Veuillez séletionner une catégorie de projet");
+        return false;
+    }
+    if (!image) {
+        alert("Veuillez sélectionner une image");
+        return false;
+    }
+    return true;
+}
