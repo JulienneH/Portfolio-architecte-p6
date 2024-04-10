@@ -306,7 +306,7 @@ document.addEventListener("DOMContentLoaded", function () {
     getCategories().then(categories => {
         categories.forEach(category => {
             let option = document.createElement("option");
-            option.id = category.id;
+            option.value = category.id;
             option.textContent = category.name;
             modalCategorie.appendChild(option); // Ajouter chaque option à l'élément select
         });
@@ -357,18 +357,34 @@ function deleteWork(event) {
 }
 
 /////envoi d'un nouveau projet au backend /////////
-//déclaration des variables pour récupéré les données fournies par l'utilisateur
+//récupération des données fournies par l'utilisateur
+const buttonValidate = document.getElementById("buttonValidate");
 
-
-
-const buttonValidate = document.getElementById('buttonValidate');
-
-
-
-buttonValidate.addEventListener("click", function () {
+buttonValidate.addEventListener("click", async function () {
     const titre = document.getElementById('title').value;
-    const categorieForm = document.getElementById('categorie').value;
+    const category = document.getElementById('categorie').value;
     const image = document.getElementById('image').files[0];
+    const formData = new FormData();
 
-    console.log(titre, categorieForm, image);
+    formData.append('title', titre);
+    formData.append('category', category);
+    formData.append('image', image);
+
+    console.log(titre, category, image);
+    //envoi d'un nouveau projet vers le backend//
+    try {
+        const response = await fetch('http://localhost:5678/api/works', {
+            method: 'POST',
+            body: formData,
+            headers: { Authorization: 'Bearer ' + localStorage.getItem('token') }
+        });
+
+        if (response.ok) {
+            console.log("La requête a fonctionné");
+        } else {
+            console.error('Erreur lors de l\'envoi des données:');
+        }
+    } catch (error) {
+        console.error('Erreur lors de la requête vers API:', error);
+    }
 });
