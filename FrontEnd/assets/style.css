@@ -507,7 +507,7 @@ a {
 
 
 
-.validate_button {
+#modale .validate_button {
 	background-color: #A7A7A7;
 	color: white;
 	border: none;
@@ -549,17 +549,24 @@ select {
 }
 
 .button_add_photo {
-	position: absolute;
+	position: relative;
 	background-color: #CBD6DC;
 	height: 36px;
-	width: 25%;
+	width: 40%;
 	border-radius: 50px;
-	top: 35%;
 	border: none;
 	color: #306685;
 	font-size: 14px;
 	cursor: pointer;
-	right: 220px
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	bottom: 300px;
+	left: 110px;
+}
+
+.button_add_photo input[type="file"] {
+	display: none;
 }
 
 .icon_add_photo {

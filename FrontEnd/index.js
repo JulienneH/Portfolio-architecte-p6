@@ -274,8 +274,6 @@ buttonModal.addEventListener('click', function () {
     const rectangle = document.createElement("div");
     const buttonAddPhoto = document.createElement("button");
     rectangle.classList.add("rectangle");
-    buttonAddPhoto.classList.add("button_add_photo");
-    buttonAddPhoto.innerHTML = "+ Ajouter photo";
     const iconAddPhoto = document.createElement("i");
     iconAddPhoto.classList.add("fa-regular", "fa-image", "icon_add_photo");
     const imageFormat = document.createElement("p");
