@@ -97,18 +97,15 @@ displayWorks();
 
 ////////filtres pour trier par catégorie /////////////
 //récupérer les catégories depuis le backend
-let Categories;
+
 async function fetchCategories() {
+
     const response = await fetch("http://localhost:5678/api/categories");
     const categories = await response.json();
+
     return categories;
 }
-async function getCategories() {
-    if (!Categories) {
-        Categories = await fetchCategories();
-    }
-    return Categories;
-}
+
 
 
 
@@ -127,21 +124,7 @@ function createAllWorksButton() {
 }
 
 
-fetchCategories().then(categories => {// une fois que fetchCategories a reussi à récupérer les catégorie du backend
-    createAllWorksButton();
-    categories.forEach(categorie => {
-        const button = document.createElement("button"); // je créé un bouton pour chaque catégorie
-        button.textContent = categorie.name;
-        button.classList.add("button");
-        buttonContainer.appendChild(button);
-        button.addEventListener("click", () => {
-            displayWorksByCategory(categorie);
-        }
-        )
-    });
 
-
-});
 
 
 async function displayWorksByCategory(category) {
@@ -197,8 +180,8 @@ function openModale() {
     console.log("modale ouverte");
     body.classList.add("backgroundGrey");
 
-}
 
+}
 // fermeture de la modale
 
 function closeModale() {
@@ -301,12 +284,25 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log(selectedCategorie);
     //remplir le menu déroulant
 
-    getCategories().then(categories => {
+    fetchCategories().then(categories => {
         categories.forEach(category => {
             let option = document.createElement("option");
             option.value = category.id;
             option.textContent = category.name;
-            modalCategorie.appendChild(option); // Ajouter chaque option à l'élément select
+            modalCategorie.appendChild(option);
+        });
+        createAllWorksButton();
+        categories.forEach(categorie => {
+            const button = document.createElement("button"); // je créé un bouton pour chaque catégorie
+            button.textContent = categorie.name;
+            button.classList.add("button");
+            buttonContainer.appendChild(button);
+            button.addEventListener("click", () => {
+                displayWorksByCategory(categorie);
+            }
+            )
+
+
         });
     });
 
@@ -345,9 +341,7 @@ function deleteWork(event) {
                     }
                 }
             })
-            .catch(error => {
-                console.error("erreur lors de la suppression du travail");
-            });
+
 
     } else {
         console.log("pas de token donc la supression a échoué")
