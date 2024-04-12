@@ -413,6 +413,10 @@ a {
 /*modale */
 .first_page {
 	position: absolute;
+	height: 500px;
+	overflow-x: hidden;
+	overflow-y: auto;
+
 }
 
 .modale {
@@ -480,14 +484,20 @@ a {
 	text-align: center;
 	border-radius: 60px;
 	cursor: pointer;
+	position: fixed;
+	top: 80%;
+	right: 33%;
+
 }
+
+
+
 
 .line {
 	border: 1px solid #B3B3B3;
 	width: 60%;
-	position: absolute;
-	top: 520px;
-	align-content: center;
+	position: fixed;
+	top: 80%;
 	right: 20%;
 }
 
@@ -507,11 +517,28 @@ a {
 
 
 
+
+
+
 #modale .validate_button {
-	background-color: #A7A7A7;
+
 	color: white;
 	border: none;
 	margin-top: 460px;
+	width: 200px;
+	font-size: 14px;
+	height: 36px;
+
+	font-family: 'Syne';
+	font-weight: 700;
+}
+
+#modale .grey {
+	background-color: #A7A7A7;
+}
+
+#modale .green {
+	background-color: #1D6154;
 }
 
 .modal_form {
@@ -524,6 +551,8 @@ a {
 	right: 120px;
 
 }
+
+
 
 .modal_form #title,
 select {
@@ -596,5 +625,7 @@ select {
 
 /* CSS pour appliquer un voile gris semi-transparent sur toute la page */
 .backgroundGrey {
-	background-color: rgba(0, 0, 0, 0.3)
+	background-color: rgba(0, 0, 0, 0.3);
+	z-index: 9999;
+
 }

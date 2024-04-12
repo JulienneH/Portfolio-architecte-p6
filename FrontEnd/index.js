@@ -247,7 +247,6 @@ async function displayWorksInModal() {
 
     });
     modalWorks.appendChild(displayWorks);
-
 }
 
 //seconde page modale
@@ -364,10 +363,12 @@ buttonValidate.addEventListener("click", async function () {
 
     // validation des données saisies par l'utilisateur
     if (!dataValidator(titre, category, image)) {
+
+
         return;
     }
-
-
+    buttonValidate.classList.remove('grey');
+    buttonValidate.classList.add('green');
 
     const formData = new FormData();
 
@@ -387,6 +388,7 @@ buttonValidate.addEventListener("click", async function () {
         if (response.ok) {
             const responseData = await response.json();
             console.log("La requête a fonctionné", responseData);
+
         } else {
             console.error('Erreur lors de l\'envoi des données:');
         }
@@ -398,6 +400,7 @@ function dataValidator(titre, category, image) {
     if (!titre.trim()) {
         alert("Veuillez entrer le titre de votre projet")
         return false;
+
     }
     if (!category.trim()) {
         alert(" Veuillez séletionner une catégorie de projet");
@@ -407,5 +410,8 @@ function dataValidator(titre, category, image) {
         alert("Veuillez sélectionner une image");
         return false;
     }
+
+
     return true;
+
 }
