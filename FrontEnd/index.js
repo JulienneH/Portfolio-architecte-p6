@@ -247,6 +247,7 @@ async function displayWorksInModal() {
 
     });
     modalWorks.appendChild(displayWorks);
+
 }
 
 //seconde page modale
@@ -336,6 +337,10 @@ function deleteWork(event) {
                     const modalWorkElement = document.getElementById(`modal_work_${id}`);
                     if (modalWorkElement) {
                         modalWorkElement.remove();
+                        // Mettre à jour la variable Works après la suppression du travail
+                        fetchWorksFromApi().then(works => {
+                            Works = works;
+                        });
                     } else {
                         console.error("travail non trouvé dans la modale");
                     }
@@ -380,7 +385,8 @@ buttonValidate.addEventListener("click", async function () {
         });
 
         if (response.ok) {
-            console.log("La requête a fonctionné");
+            const responseData = await response.json();
+            console.log("La requête a fonctionné", responseData);
         } else {
             console.error('Erreur lors de l\'envoi des données:');
         }
