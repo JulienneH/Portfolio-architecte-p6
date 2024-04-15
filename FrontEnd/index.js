@@ -390,6 +390,7 @@ buttonValidate.addEventListener("click", async function () {
             const responseData = await response.json();
             console.log("La requête a fonctionné", responseData);
             const newWork = createWorkElement(responseData);
+            createWorkElementInModal(responseData);
             worksContainer.appendChild(newWork)
         } else {
             console.error('Erreur lors de l\'envoi des données:');
@@ -398,13 +399,13 @@ buttonValidate.addEventListener("click", async function () {
         console.error('Erreur lors de la requête vers API:', error);
     }
 });
-const arrayworks = newWork;
+
 function createWorkElement(workData) {
     // Créer un élément HTML pour représenter le travail ajouté
     const displayWorks = document.createElement("div");
-
+    workElement.classList.add("gallery");
     const workElement = document.createElement("figure");
-    displayWorks.classList.add("gallery");
+
     workElement.id = `work_${workData.id}`;
     const imageElement = document.createElement('img');
     imageElement.src = workData.imageUrl;
@@ -415,6 +416,24 @@ function createWorkElement(workData) {
     displayWorks.appendChild(workElement);
 
     document.getElementById("worksContainer").appendChild(displayWorks);
+}
+
+function createWorkElementInModal(workData) {
+    // Créer un élément HTML pour représenter le travail ajouté
+    const displayWorks = document.createElement("div");
+
+    const modalWork = document.createElement("figure");
+    modalWork.classList.add("styleWorksModal");
+    modalWork.id = `work_${workData.id}`;
+    const imageElement = document.createElement('img');
+    imageElement.src = workData.imageUrl;
+    const titleElement = document.createElement('figcaption');
+    titleElement.innerHTML = workData.title;
+    modalWork.appendChild(titleElement);
+    modalWork.appendChild(imageElement);
+    displayWorks.appendChild(modalWork);
+
+    document.getElementById("modale").appendChild(displayWorks);
 }
 
 
