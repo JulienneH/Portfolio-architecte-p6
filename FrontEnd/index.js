@@ -376,6 +376,7 @@ function deleteWork(event) {
 
 /////envoi d'un nouveau projet au backend /////////
 //récupération des données fournies par l'utilisateur
+
 const buttonValidate = document.getElementById("buttonValidate");
 
 buttonValidate.addEventListener("click", async function () {
@@ -411,9 +412,9 @@ buttonValidate.addEventListener("click", async function () {
         if (response.ok) {
             const responseData = await response.json();
             console.log("La requête a fonctionné", responseData);
-            const newWork = createWorkElement(responseData);
+            createWorkElement(responseData);
             createWorkElementInModal(responseData);
-            //worksContainer.appendChild(newWork)
+
         } else {
             console.error('Erreur lors de l\'envoi des données:');
         }
@@ -424,26 +425,26 @@ buttonValidate.addEventListener("click", async function () {
 
 function createWorkElement(workData) {
     // Créer un élément HTML pour représenter le travail ajouté
-    const displayWorks = document.createElement("div");
-    const workElement = document.createElement("figure"); // Déclarer workElement ici
-
-    workElement.classList.add("gallery");
+    const gallery = document.querySelector(".gallery")
+    const workElement = document.createElement("figure");
     workElement.id = `work_${workData.id}`;
     const imageElement = document.createElement('img');
     imageElement.src = workData.imageUrl;
     const titleElement = document.createElement('figcaption');
     titleElement.innerHTML = workData.title;
-    workElement.appendChild(titleElement);
     workElement.appendChild(imageElement);
-    displayWorks.appendChild(workElement);
+    workElement.appendChild(titleElement);
+    gallery.appendChild(workElement);
+    const worksContainer = document.getElementById("worksContainer");
+    worksContainer.appendChild(gallery);
 
-    document.getElementById("worksContainer").appendChild(displayWorks);
+
 }
 
 
 function createWorkElementInModal(workData) {
     // Créer un élément HTML pour représenter le travail ajouté
-    const displayWorks = document.createElement("div");
+
 
     const modalWork = document.createElement("figure");
     modalWork.classList.add("styleWorksModal");
@@ -454,9 +455,10 @@ function createWorkElementInModal(workData) {
     titleElement.innerHTML = workData.title;
     modalWork.appendChild(titleElement);
     modalWork.appendChild(imageElement);
-    displayWorks.appendChild(modalWork);
 
-    document.getElementById("modale").appendChild(displayWorks);
+
+
+    document.querySelector(".first_page").appendChild(modalWork);
 }
 
 
