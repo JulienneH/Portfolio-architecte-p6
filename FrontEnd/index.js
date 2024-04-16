@@ -267,8 +267,30 @@ buttonModal.addEventListener('click', function () {
         // Supprimer la secondPage de la modalWorks
         secondPage.classList.add("hidden");
         firstPage.classList.remove("hidden");
-    });
 
+
+    });
+    //Ajouter le fichier selectionné dans le rectangle de la 2nd page de la modale
+    const label = document.querySelector('label.button_add_photo');
+    const imageInput = document.getElementById('image');
+    imageInput.addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function () {
+                const imageUrl = reader.result;
+                const imageElement = document.createElement('img');
+                imageElement.src = imageUrl;
+                imageElement.classList.add('modal_image');
+                imageFormat.innerHTML = '';
+                rectangle.appendChild(imageElement);
+            };
+            reader.readAsDataURL(file);
+        }
+        /*  else {
+              label.classList.remove("hidden");
+          }*/
+    });
     secondPage.appendChild(rectangle);
     secondPage.appendChild(buttonAddPhoto);
     secondPage.appendChild(iconAddPhoto);
@@ -391,7 +413,7 @@ buttonValidate.addEventListener("click", async function () {
             console.log("La requête a fonctionné", responseData);
             const newWork = createWorkElement(responseData);
             createWorkElementInModal(responseData);
-            worksContainer.appendChild(newWork)
+            //worksContainer.appendChild(newWork)
         } else {
             console.error('Erreur lors de l\'envoi des données:');
         }
@@ -403,9 +425,9 @@ buttonValidate.addEventListener("click", async function () {
 function createWorkElement(workData) {
     // Créer un élément HTML pour représenter le travail ajouté
     const displayWorks = document.createElement("div");
-    workElement.classList.add("gallery");
-    const workElement = document.createElement("figure");
+    const workElement = document.createElement("figure"); // Déclarer workElement ici
 
+    workElement.classList.add("gallery");
     workElement.id = `work_${workData.id}`;
     const imageElement = document.createElement('img');
     imageElement.src = workData.imageUrl;
@@ -417,6 +439,7 @@ function createWorkElement(workData) {
 
     document.getElementById("worksContainer").appendChild(displayWorks);
 }
+
 
 function createWorkElementInModal(workData) {
     // Créer un élément HTML pour représenter le travail ajouté

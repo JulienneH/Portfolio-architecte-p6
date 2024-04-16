@@ -629,3 +629,15 @@ select {
 	z-index: 9999;
 
 }
+
+#worksContainer {
+	background-color: blue;
+}
+
+.modal_image {
+	width: 40%;
+	height: 100%;
+	margin-left: 110px;
+	z-index: 222;
+	position: absolute;
+}
