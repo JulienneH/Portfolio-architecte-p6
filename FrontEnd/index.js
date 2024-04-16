@@ -230,7 +230,7 @@ async function displayWorksInModal() {
 
     const displayWorks = document.createElement("div");
     const arrayworks = await getWorks();
-    arrayworks.forEach((work) => {
+    arrayworks.forEach(function createModalWork(work) {
 
         const modalWork = document.createElement("figure");
         modalWork.id = `modal_work_${work.id}`;
@@ -444,21 +444,31 @@ function createWorkElement(workData) {
 
 function createWorkElementInModal(workData) {
     // Créer un élément HTML pour représenter le travail ajouté
-
+    const worksModal = document.querySelector(".styleWorksModal");
 
     const modalWork = document.createElement("figure");
-    modalWork.classList.add("styleWorksModal");
     modalWork.id = `work_${workData.id}`;
+    /*
+        const deleteIcon = document.createElement("i");
+        deleteIcon.classList.add("fa-regular", "fa-trash-can", "delete_logo");
+        deleteIcon.dataset.workId = `work_${workData.id}`;
+        deleteIcon.addEventListener("click", deleteWork);
+        modalWork.appendChild(deleteIcon);
+    */
     const imageElement = document.createElement('img');
     imageElement.src = workData.imageUrl;
-    const titleElement = document.createElement('figcaption');
-    titleElement.innerHTML = workData.title;
-    modalWork.appendChild(titleElement);
     modalWork.appendChild(imageElement);
 
 
+    worksModal.appendChild(modalWork);
 
-    document.querySelector(".first_page").appendChild(modalWork);
+    document.querySelector(".first_page").appendChild(worksModal);
+
+
+
+
+
+
 }
 
 
