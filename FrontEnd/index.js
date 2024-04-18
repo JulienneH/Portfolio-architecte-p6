@@ -283,7 +283,7 @@ buttonModal.addEventListener('click', function () {
             reader.readAsDataURL(file);
         }
     });
-    ;
+
 
 
     secondPage.appendChild(arrowPrevious);
@@ -352,7 +352,7 @@ function deleteWork(event) {
                         modalWorkElement.remove();
 
                         // Mettre à jour Works en supprimant le travail avec l'ID correspondant
-                        Works = Works.filter((work) => (work.id !== id));
+                        Works = Works.filter((work) => (work.id != id));
 
                     } else {
                         console.error("travail non trouvé dans la modale");
