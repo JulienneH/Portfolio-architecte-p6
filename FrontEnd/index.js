@@ -37,6 +37,7 @@ log.addEventListener('click', function logout() {
 // et pour retourner la réponse sous format json
 let Works;
 
+
 async function fetchWorksFromApi() {
     const response = await fetch("http://localhost:5678/api/works"); //GET par défaut
     const works = await response.json();
@@ -47,9 +48,10 @@ async function fetchWorksFromApi() {
 // sinon on récupère la réponse de fetchWorksFromApi
 async function getWorks() {
     if (!Works) {
+
         Works = await fetchWorksFromApi();
     }
-    return Works
+    return Works;
 }
 
 
@@ -254,14 +256,6 @@ async function displayWorksInModal() {
 buttonModal.addEventListener('click', function () {
     firstPage.classList.add("hidden");
     secondPage.classList.remove("hidden");
-    const rectangle = document.createElement("div");
-    const buttonAddPhoto = document.createElement("button");
-    rectangle.classList.add("rectangle");
-    const iconAddPhoto = document.createElement("i");
-    iconAddPhoto.classList.add("fa-regular", "fa-image", "icon_add_photo");
-    const imageFormat = document.createElement("p");
-    imageFormat.classList.add("image_format");
-    imageFormat.innerHTML = "jpg, png: 4mo max";
     const arrowPrevious = document.querySelector(".arrow_previous");
     arrowPrevious.addEventListener('click', function () {
         // Supprimer la secondPage de la modalWorks
@@ -271,7 +265,8 @@ buttonModal.addEventListener('click', function () {
 
     });
     //Ajouter le fichier selectionné dans le rectangle de la 2nd page de la modale
-    const label = document.querySelector('label.button_add_photo');
+    const rectangle = document.querySelector(".rectangle");
+    imageFormat = document.querySelector(".image_format");
     const imageInput = document.getElementById('image');
     imageInput.addEventListener('change', function (event) {
         const file = event.target.files[0];
@@ -287,14 +282,10 @@ buttonModal.addEventListener('click', function () {
             };
             reader.readAsDataURL(file);
         }
-        /*  else {
-              label.classList.remove("hidden");
-          }*/
     });
-    secondPage.appendChild(rectangle);
-    secondPage.appendChild(buttonAddPhoto);
-    secondPage.appendChild(iconAddPhoto);
-    secondPage.appendChild(imageFormat);
+    ;
+
+
     secondPage.appendChild(arrowPrevious);
     modale.appendChild(secondPage);
 
@@ -332,6 +323,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 //suppression des travaux depuis la modale 
 function deleteWork(event) {
+
     if (localStorage.getItem('token')) {
         const trash = event.currentTarget;
         const id = trash.dataset.workId;
@@ -358,21 +350,28 @@ function deleteWork(event) {
                     const modalWorkElement = document.getElementById(`modal_work_${id}`);
                     if (modalWorkElement) {
                         modalWorkElement.remove();
-                        // Mettre à jour la variable Works après la suppression du travail
-                        fetchWorksFromApi().then(works => {
-                            Works = works;
-                        });
+
+                        // Mettre à jour Works en supprimant le travail avec l'ID correspondant
+                        Works = Works.filter((work) => (work.id !== id));
+
                     } else {
                         console.error("travail non trouvé dans la modale");
                     }
                 }
             })
-
-
     } else {
         console.log("pas de token donc la supression a échoué")
     }
 }
+// Mettre à jour la variable Works après la suppression du travail
+/*console.log(Works, id);
+Works = Works.filter((work) => {
+
+    console.log(work, id, work.id !== id);
+    return work.id !== id;
+});
+//Works.splice(Works.find((work) => work.id === id), 1);
+console.log(Works);*/
 
 /////envoi d'un nouveau projet au backend /////////
 //récupération des données fournies par l'utilisateur
@@ -414,6 +413,7 @@ buttonValidate.addEventListener("click", async function () {
             console.log("La requête a fonctionné", responseData);
             createWorkElement(responseData);
             createWorkElementInModal(responseData);
+            Works.add(responseData);
 
         } else {
             console.error('Erreur lors de l\'envoi des données:');
@@ -424,7 +424,7 @@ buttonValidate.addEventListener("click", async function () {
 });
 
 function createWorkElement(workData) {
-    // Créer un élément HTML pour représenter le travail ajouté
+
     const gallery = document.querySelector(".gallery")
     const workElement = document.createElement("figure");
     workElement.id = `work_${workData.id}`;
@@ -443,18 +443,12 @@ function createWorkElement(workData) {
 
 
 function createWorkElementInModal(workData) {
-    // Créer un élément HTML pour représenter le travail ajouté
+
     const worksModal = document.querySelector(".styleWorksModal");
 
     const modalWork = document.createElement("figure");
     modalWork.id = `work_${workData.id}`;
-    /*
-        const deleteIcon = document.createElement("i");
-        deleteIcon.classList.add("fa-regular", "fa-trash-can", "delete_logo");
-        deleteIcon.dataset.workId = `work_${workData.id}`;
-        deleteIcon.addEventListener("click", deleteWork);
-        modalWork.appendChild(deleteIcon);
-    */
+
     const imageElement = document.createElement('img');
     imageElement.src = workData.imageUrl;
     modalWork.appendChild(imageElement);
@@ -462,13 +456,7 @@ function createWorkElementInModal(workData) {
 
     worksModal.appendChild(modalWork);
 
-    document.querySelector(".first_page").appendChild(worksModal);
-
-
-
-
-
-
+    document.getElementById("modalWorks").appendChild(worksModal);
 }
 
 
