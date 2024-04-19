@@ -363,44 +363,75 @@ function deleteWork(event) {
         console.log("pas de token donc la supression a échoué")
     }
 }
-// Mettre à jour la variable Works après la suppression du travail
-/*console.log(Works, id);
-Works = Works.filter((work) => {
 
-    console.log(work, id, work.id !== id);
-    return work.id !== id;
-});
-//Works.splice(Works.find((work) => work.id === id), 1);
-console.log(Works);*/
 
 /////envoi d'un nouveau projet au backend /////////
-//récupération des données fournies par l'utilisateur
 
 const buttonValidate = document.getElementById("buttonValidate");
+let titre, category, image;
+
+//mise à jour des variables globales avec les valeurs saisies par l'utilisateur
+function updateFormValues() {
+    titre = document.getElementById('title').value;
+    category = document.getElementById('categorie').value;
+    image = document.getElementById('image').files[0];
+}
+// vérifier si le formulaire est rempli
+function checkFormValidity() {
+    updateFormValues();
+
+    if (dataValidator(titre, category, image)) {
+        buttonValidate.classList.remove('grey');
+        buttonValidate.classList.add('green');
+    } else {
+        buttonValidate.classList.remove('green');
+        buttonValidate.classList.add('grey');
+    }
+}
+
+// Fonction pour valider les données du formulaire
+function dataValidator(titre, category, image) {
+    if (!titre.trim()) {
+        return false;
+    }
+    if (!category.trim()) {
+        return false;
+    }
+    if (!image) {
+        return false;
+    }
+    return true;
+}
+
+// Écouter les événements de changement sur les champs du formulaire
+document.getElementById('title').addEventListener("change", checkFormValidity);
+document.getElementById('categorie').addEventListener("change", checkFormValidity);
+document.getElementById('image').addEventListener("change", checkFormValidity);
 
 buttonValidate.addEventListener("click", async function () {
-    const titre = document.getElementById('title').value;
-    const category = document.getElementById('categorie').value;
-    const image = document.getElementById('image').files[0];
+    updateFormValues();
 
-    // validation des données saisies par l'utilisateur
+    // Validation des données saisies par l'utilisateur
     if (!dataValidator(titre, category, image)) {
 
-
+        if (!titre.trim()) {
+            alert("Veuillez entrer le titre de votre projet");
+        }
+        if (!category.trim()) {
+            alert("Veuillez sélectionner une catégorie de projet");
+        }
+        if (!image) {
+            alert("Veuillez sélectionner une image");
+        }
         return;
     }
-    buttonValidate.classList.remove('grey');
-    buttonValidate.classList.add('green');
-
 
     const formData = new FormData();
-
     formData.append('title', titre);
     formData.append('category', category);
     formData.append('image', image);
 
-    console.log(titre, category, image);
-    //envoi d'un nouveau projet vers le backend//
+    // Envoi d'un nouveau projet vers le backend
     try {
         const response = await fetch('http://localhost:5678/api/works', {
             method: 'POST',
@@ -413,15 +444,15 @@ buttonValidate.addEventListener("click", async function () {
             console.log("La requête a fonctionné", responseData);
             createWorkElement(responseData);
             createWorkElementInModal(responseData);
-            Works.add(responseData);
-
+            // Works.add(responseData);
         } else {
-            console.error('Erreur lors de l\'envoi des données:');
+            console.error('Erreur lors de l\'envoi des données:', response.statusText);
         }
     } catch (error) {
         console.error('Erreur lors de la requête vers API:', error);
     }
 });
+
 
 function createWorkElement(workData) {
 
@@ -459,23 +490,3 @@ function createWorkElementInModal(workData) {
     document.getElementById("modalWorks").appendChild(worksModal);
 }
 
-
-function dataValidator(titre, category, image) {
-    if (!titre.trim()) {
-        alert("Veuillez entrer le titre de votre projet")
-        return false;
-
-    }
-    if (!category.trim()) {
-        alert(" Veuillez séletionner une catégorie de projet");
-        return false;
-    }
-    if (!image) {
-        alert("Veuillez sélectionner une image");
-        return false;
-    }
-
-
-    return true;
-
-}
