@@ -215,7 +215,14 @@ modale.addEventListener('click', (event) => {
         body.classList.remove("backgroundGrey");
     }
 });
-
+// fonction de création de la poubelle 
+function createDeleteIcon(workId) {
+    const deleteIcon = document.createElement("i");
+    deleteIcon.classList.add("fa-regular", "fa-trash-can", "delete_logo");
+    deleteIcon.dataset.workId = workId; // Utilisez workId plutôt que work.id
+    deleteIcon.addEventListener("click", deleteWork);
+    return deleteIcon; // Retournez deleteIcon
+}
 
 
 
@@ -233,23 +240,19 @@ async function displayWorksInModal() {
     const displayWorks = document.createElement("div");
     const arrayworks = await getWorks();
     arrayworks.forEach(function createModalWork(work) {
-
         const modalWork = document.createElement("figure");
         modalWork.id = `modal_work_${work.id}`;
         displayWorks.classList.add("styleWorksModal");
         const imageElement = document.createElement("img");
         imageElement.src = work.imageUrl;
-        const deleteIcon = document.createElement("i");
-        deleteIcon.classList.add("fa-regular", "fa-trash-can", "delete_logo");
-        deleteIcon.dataset.workId = work.id;
-        deleteIcon.addEventListener("click", deleteWork);
+        const deleteIcon = createDeleteIcon(work.id);
         modalWork.appendChild(deleteIcon);
         modalWork.appendChild(imageElement);
         displayWorks.appendChild(modalWork);
-
     });
     modalWorks.appendChild(displayWorks);
 }
+
 
 //seconde page modale
 
@@ -478,15 +481,21 @@ function createWorkElementInModal(workData) {
     const worksModal = document.querySelector(".styleWorksModal");
 
     const modalWork = document.createElement("figure");
-    modalWork.id = `work_${workData.id}`;
+    modalWork.id = `modal_work_${workData.id}`;
+
 
     const imageElement = document.createElement('img');
     imageElement.src = workData.imageUrl;
+    const deleteIcon = createDeleteIcon(workData.id);
+    modalWork.appendChild(deleteIcon);
     modalWork.appendChild(imageElement);
 
 
     worksModal.appendChild(modalWork);
 
     document.getElementById("modalWorks").appendChild(worksModal);
+    Works.push(workData);
+
+
 }
 
