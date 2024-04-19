@@ -379,7 +379,7 @@ a {
 
 /*styles when user is logged in*/
 .modify {
-	size: 14px;
+	font-size: 14px;
 	display: flex;
 	justify-content: center;
 	padding-left: 350px;
