@@ -110,6 +110,7 @@ section {
 
 body {
 	line-height: 1;
+	background-color: #FFFEF8;
 }
 
 ol,
@@ -186,6 +187,7 @@ nav ul {
 nav li {
 	padding: 0 10px;
 	font-size: 1.2em;
+	font-weight: bold;
 }
 
 li:hover {
@@ -294,6 +296,14 @@ footer nav ul {
 	margin: 2em
 }
 
+footer {
+	background-color: white;
+	height: 70px;
+	position: absolute;
+	left: 0;
+	right: 0;
+}
+
 /* button filter */
 .button {
 	border: 1px solid #1D6154;
@@ -337,6 +347,7 @@ footer nav ul {
 	font-size: 16px;
 	padding-top: 30px;
 	padding-bottom: 150px;
+	text-decoration: underline;
 }
 
 .color_login {
@@ -345,14 +356,17 @@ footer nav ul {
 
 .footer_login {
 	background-color: white;
-
 	height: 70px;
-	width: 100%;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 95%;
 }
 
 .footer_text {
 	padding-top: 30px;
-	text-align: right;
+	position: absolute;
+	right: 100px;
 }
 
 a {
@@ -372,10 +386,12 @@ a {
 	margin-bottom: -22px;
 	visibility: hidden;
 	cursor: pointer;
+	font-weight: bold;
 }
 
 .modify_icon {
 	padding-right: 15px;
+	font-weight: bold;
 }
 
 
@@ -472,7 +488,6 @@ a {
 }
 
 .buttonModal {
-	display: flex;
 	width: 200px;
 	font-size: 14px;
 	height: 36px;
@@ -489,6 +504,7 @@ a {
 	right: 33%;
 
 }
+
 
 
 
