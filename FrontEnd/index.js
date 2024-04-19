@@ -219,9 +219,9 @@ modale.addEventListener('click', (event) => {
 function createDeleteIcon(workId) {
     const deleteIcon = document.createElement("i");
     deleteIcon.classList.add("fa-regular", "fa-trash-can", "delete_logo");
-    deleteIcon.dataset.workId = workId; // Utilisez workId plutôt que work.id
+    deleteIcon.dataset.workId = workId;
     deleteIcon.addEventListener("click", deleteWork);
-    return deleteIcon; // Retournez deleteIcon
+    return deleteIcon;
 }
 
 
