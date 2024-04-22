@@ -1,8 +1,7 @@
 ///changer la mise en page de index.html quand l'utilisateur est connecté 
 function layoutUpdate() {
 
-    if (localStorage.getItem('token')) {  // on vérifie si la connexion a réusssi
-        console.log("Connexion réussie");
+    if (localStorage.getItem('token')) {
         const modify = document.querySelector(".modify");
         const button = document.getElementById("buttonContainer");
         const log = document.querySelector(".Log");
@@ -39,13 +38,11 @@ let Works;
 
 
 async function fetchWorksFromApi() {
-    const response = await fetch("http://localhost:5678/api/works"); //GET par défaut
+    const response = await fetch("http://localhost:5678/api/works");
     const works = await response.json();
     return works;
 }
-//Pour éviter de faire un second appel à l'API 
-// on fait un appel à l'API seulement si Works est null
-// sinon on récupère la réponse de fetchWorksFromApi
+// utiliser un cache pour éviter un 2nd appel à l'api
 async function getWorks() {
     if (!Works) {
 
@@ -59,45 +56,29 @@ async function getWorks() {
 async function displayWorks() {
 
     const displayWorks = document.createElement("div");
-
-    // obtenir les travaux à afficher en appelant la fonction getWorks
     const arrayworks = await getWorks();
-
-    //pour chaque travaux je créé une balise figure
-
     arrayworks.forEach((work) => {
         const workElement = document.createElement("figure");
         displayWorks.classList.add("gallery");
         workElement.id = `work_${work.id}`;
-
-
-        // Créer un élément img pour chaque URL d'image 
         const imageElement = document.createElement("img");
         imageElement.src = work.imageUrl;
-
-        // Ajout de l'élément image dans <figure> 
         workElement.appendChild(imageElement);
-
-        // Ajout du titre dans <figure>
         const titleElement = document.createElement("figcaption");
         titleElement.innerText = work.title;
         workElement.appendChild(titleElement);
-
-        // Ajout de <figure> dans displayWorks donc ajout des works dans le conteneur
         displayWorks.appendChild(workElement);
 
     });
 
-    // Ajout des works dans la section avec l'id worksContainer dans le DOM 
     document.getElementById("worksContainer").appendChild(displayWorks);
 
 }
-
-
-
 displayWorks();
 
 ////////filtres pour trier par catégorie /////////////
+
+
 //récupérer les catégories depuis le backend
 
 async function fetchCategories() {
@@ -108,16 +89,13 @@ async function fetchCategories() {
     return categories;
 }
 
-
-
-
+// bouton "tout"
 function createAllWorksButton() {
     const buttonContainer = document.getElementById("buttonContainer");
     const allButton = document.createElement("button");
     allButton.textContent = "Tout";
     allButton.classList.add("button");
     buttonContainer.appendChild(allButton);
-
     allButton.addEventListener("click", () => {
         const worksContainer = document.getElementById("worksContainer");
         worksContainer.innerHTML = "";
@@ -125,40 +103,25 @@ function createAllWorksButton() {
     });
 }
 
-
-
-
-
 async function displayWorksByCategory(category) {
     const displayCategories = document.createElement("div");
-
-    const works = await getWorks(); // je récupère les travaux associés à la catégorie
-
+    const works = await getWorks();
     works.forEach(work => {
-        if (work.categoryId === category.id) { // je vérifie si le work appartient à la catégorie en comparant les id
+        if (work.categoryId === category.id) {
             const workElement = document.createElement("figure");
             displayCategories.classList.add("gallery");
-
             const imageElement = document.createElement("img");
             imageElement.src = work.imageUrl;
             workElement.appendChild(imageElement);
-
             const titleElement = document.createElement("figcaption");
             titleElement.innerText = work.title;
             workElement.appendChild(titleElement);
-
             displayCategories.appendChild(workElement);
 
         }
 
     });
-
-
-    // Supprime tous les travaux qui étaient affichés précédemment 
     document.getElementById("worksContainer").innerHTML = "";
-
-
-    // j'ajoute les travaux au dom 
     document.getElementById("worksContainer").appendChild(displayCategories);
 
 }
@@ -166,24 +129,20 @@ async function displayWorksByCategory(category) {
 //////////////modale///////////////////
 
 //variables pour la modale 
-
 const modale = document.getElementById("modale");
 const buttonModal = document.querySelector(".buttonModal");
 const titleModal = document.querySelector(".modal_title");
 const firstPage = document.querySelector(".first_page");
 const secondPage = document.querySelector(".second_page");
 const body = document.body;
+
 //ouverture de la modale
-
 function openModale() {
-
     modale.classList.remove("hidden");
     displayWorksInModal();
-    console.log("modale ouverte");
     body.classList.add("backgroundGrey");
-
-
 }
+
 // fermeture de la modale
 
 function closeModale() {
@@ -192,14 +151,11 @@ function closeModale() {
 
 }
 
-//ecouteur evenement fermeture modale
 document.addEventListener('click', function (event) {
     if (!modale.contains(event.target)) {
         closeModale();
     }
 });
-
-//ecouteur evenement clic sur modifier 
 
 const modifyButton = document.querySelector(".modify");
 modifyButton.addEventListener('click', function modifyButtonClick(event) {
@@ -211,29 +167,15 @@ modifyButton.addEventListener('click', function modifyButtonClick(event) {
 
 modale.addEventListener('click', (event) => {
     if (event.target.classList.contains('cross')) {
-        modale.classList.add("hidden");
-        body.classList.remove("backgroundGrey");
+        closeModale();
     }
 });
-// fonction de création de la poubelle 
-function createDeleteIcon(workId) {
-    const deleteIcon = document.createElement("i");
-    deleteIcon.classList.add("fa-regular", "fa-trash-can", "delete_logo");
-    deleteIcon.dataset.workId = workId;
-    deleteIcon.addEventListener("click", deleteWork);
-    return deleteIcon;
-}
-
 
 
 // affichage des travaux dans la modale
 const modalWorks = document.getElementById("modalWorks");
-
-
 async function displayWorksInModal() {
-    // Vérifier s'il y a déjà des travaux affichés
     if (modalWorks.children.length > 0) {
-        // S'il y en a, les supprimer
         modalWorks.innerHTML = '';
     }
 
@@ -252,78 +194,13 @@ async function displayWorksInModal() {
     });
     modalWorks.appendChild(displayWorks);
 }
-
-
-//seconde page modale
-
-buttonModal.addEventListener('click', function () {
-    firstPage.classList.add("hidden");
-    secondPage.classList.remove("hidden");
-    const arrowPrevious = document.querySelector(".arrow_previous");
-    arrowPrevious.addEventListener('click', function () {
-        // Supprimer la secondPage de la modalWorks
-        secondPage.classList.add("hidden");
-        firstPage.classList.remove("hidden");
-
-
-    });
-    //Ajouter le fichier selectionné dans le rectangle de la 2nd page de la modale
-    const rectangle = document.querySelector(".rectangle");
-    imageFormat = document.querySelector(".image_format");
-    const imageInput = document.getElementById('image');
-    imageInput.addEventListener('change', function (event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function () {
-                const imageUrl = reader.result;
-                const imageElement = document.createElement('img');
-                imageElement.src = imageUrl;
-                imageElement.classList.add('modal_image');
-                imageFormat.innerHTML = '';
-                rectangle.appendChild(imageElement);
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-
-
-
-    secondPage.appendChild(arrowPrevious);
-    modale.appendChild(secondPage);
-
-
-})
-document.addEventListener("DOMContentLoaded", function () {
-    const modalCategorie = document.getElementById("categorie");
-    let selectedCategorie = document.getElementById("selectedCategory");
-    console.log(selectedCategorie);
-    //remplir le menu déroulant
-
-    fetchCategories().then(categories => {
-        categories.forEach(category => {
-            let option = document.createElement("option");
-            option.value = category.id;
-            option.textContent = category.name;
-            modalCategorie.appendChild(option);
-        });
-        createAllWorksButton();
-        categories.forEach(categorie => {
-            const button = document.createElement("button"); // je créé un bouton pour chaque catégorie
-            button.textContent = categorie.name;
-            button.classList.add("button");
-            buttonContainer.appendChild(button);
-            button.addEventListener("click", () => {
-                displayWorksByCategory(categorie);
-            }
-            )
-
-
-        });
-    });
-
-
-});
+function createDeleteIcon(workId) {
+    const deleteIcon = document.createElement("i");
+    deleteIcon.classList.add("fa-regular", "fa-trash-can", "delete_logo");
+    deleteIcon.dataset.workId = workId;
+    deleteIcon.addEventListener("click", deleteWork);
+    return deleteIcon;
+}
 //suppression des travaux depuis la modale 
 function deleteWork(event) {
 
@@ -366,6 +243,67 @@ function deleteWork(event) {
         console.log("pas de token donc la supression a échoué")
     }
 }
+
+
+//seconde page modale
+buttonModal.addEventListener('click', function () {
+    firstPage.classList.add("hidden");
+    secondPage.classList.remove("hidden");
+    const arrowPrevious = document.querySelector(".arrow_previous");
+    arrowPrevious.addEventListener('click', function () {
+        secondPage.classList.add("hidden");
+        firstPage.classList.remove("hidden");
+    });
+
+    //Ajouter le fichier selectionné dans le rectangle de la 2nd page de la modale
+    const rectangle = document.querySelector(".rectangle");
+    imageFormat = document.querySelector(".image_format");
+    const imageInput = document.getElementById('image');
+    imageInput.addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function () {
+                const imageUrl = reader.result;
+                const imageElement = document.createElement('img');
+                imageElement.src = imageUrl;
+                imageElement.classList.add('modal_image');
+                imageFormat.innerHTML = '';
+                rectangle.appendChild(imageElement);
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+    secondPage.appendChild(arrowPrevious);
+    modale.appendChild(secondPage);
+})
+// création du menu déroulant et des boutons pour les catégories
+
+document.addEventListener("DOMContentLoaded", function () {
+    const modalCategorie = document.getElementById("categorie");
+    let selectedCategorie = document.getElementById("selectedCategory");
+    console.log(selectedCategorie);
+    fetchCategories().then(categories => {
+        categories.forEach(category => {
+            let option = document.createElement("option");
+            option.value = category.id;
+            option.textContent = category.name;
+            modalCategorie.appendChild(option);
+        });
+        createAllWorksButton();
+        categories.forEach(categorie => {
+            const button = document.createElement("button");
+            button.textContent = categorie.name;
+            button.classList.add("button");
+            buttonContainer.appendChild(button);
+            button.addEventListener("click", () => {
+                displayWorksByCategory(categorie);
+            }
+            )
+
+        });
+    });
+});
 
 
 /////envoi d'un nouveau projet au backend /////////
@@ -447,7 +385,7 @@ buttonValidate.addEventListener("click", async function () {
             console.log("La requête a fonctionné", responseData);
             createWorkElement(responseData);
             createWorkElementInModal(responseData);
-            // Works.add(responseData);
+            alert("Projet ajouté");
         } else {
             console.error('Erreur lors de l\'envoi des données:', response.statusText);
         }

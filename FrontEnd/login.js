@@ -1,11 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
-    //variables globales
     const email = document.getElementById('email');
     const password = document.getElementById('password');
     const msgError = document.querySelector(".login p");
     const submit = document.getElementById("submit");
-
-    // requête API avec méthode POST
 
     function fetchUserFromApi() {
         return fetch("http://localhost:5678/api/users/login", {
@@ -18,7 +15,6 @@ document.addEventListener('DOMContentLoaded', function () {
             })
         })
     }
-    // événement au clic sur le bouton
 
     submit.addEventListener('click', async (e) => {
         e.preventDefault();
@@ -42,8 +38,6 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error("Une erreur s'est produite lors de la requête :", error);
             localStorage.removeItem('token');
         }
-
-
 
     });
 
