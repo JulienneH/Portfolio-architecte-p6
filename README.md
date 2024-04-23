@@ -16,7 +16,7 @@ Lancer de backend depuis le terminal en suivant les instructions suivantes :
 Se placer dans le dossier Backend/ 
 installer les dépendances npm avec npm install /
 npm start pour lancer l'API /
-Si vous désirez afficher le code du backend et du frontend, faites le dans deux instances de VSCode différentes./ 
+Si vous désirez afficher le code du backend et du frontend, faites le dans deux instances de VSCode différentes.
 
 Compte test administrateur : 
 email: sophie.bluel@test.tld /
