@@ -11,6 +11,7 @@ les dépendances npm
 
 
 ## Pour tester le site : 
+Installer Node.js /
 Cloner le dépôt en local / 
 Lancer de backend depuis le terminal en suivant les instructions suivantes : 
 Se placer dans le dossier Backend/ 
