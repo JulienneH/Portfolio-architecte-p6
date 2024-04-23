@@ -437,11 +437,11 @@ a {
 
 .modale {
 	position: fixed;
-	top: 60%;
+	top: 58%;
 	left: 50%;
 	transform: translate(-50%, -40%);
-	width: 630px;
-	height: 688px;
+	width: 600px;
+	height: 630px;
 	border-radius: 10px;
 	background-color: white;
 	display: flex;
@@ -500,7 +500,7 @@ a {
 	border-radius: 60px;
 	cursor: pointer;
 	position: fixed;
-	top: 80%;
+	top: 83%;
 	right: 33%;
 
 }
