@@ -437,11 +437,11 @@ a {
 
 .modale {
 	position: fixed;
-	top: 50%;
+	top: 60%;
 	left: 50%;
 	transform: translate(-50%, -40%);
-	width: 600px;
-	height: 630px;
+	width: 630px;
+	height: 688px;
 	border-radius: 10px;
 	background-color: white;
 	display: flex;
