@@ -397,7 +397,7 @@ buttonValidate.addEventListener("click", async function () {
 
 function createWorkElement(workData) {
 
-    const gallery = document.querySelector(".gallery")
+    const gallery = document.querySelector(".gallery");
     const workElement = document.createElement("figure");
     workElement.id = `work_${workData.id}`;
     const imageElement = document.createElement('img');
@@ -416,22 +416,15 @@ function createWorkElement(workData) {
 
 function createWorkElementInModal(workData) {
 
-    const worksModal = document.querySelector(".styleWorksModal");
-
+    const worksInModal = document.querySelector(".styleWorksModal");
     const modalWork = document.createElement("figure");
     modalWork.id = `modal_work_${workData.id}`;
-
-
     const imageElement = document.createElement('img');
     imageElement.src = workData.imageUrl;
     const deleteIcon = createDeleteIcon(workData.id);
     modalWork.appendChild(deleteIcon);
     modalWork.appendChild(imageElement);
-
-
-    worksModal.appendChild(modalWork);
-
-    document.getElementById("modalWorks").appendChild(worksModal);
+    worksInModal.appendChild(modalWork);
     Works.push(workData);
 
 
