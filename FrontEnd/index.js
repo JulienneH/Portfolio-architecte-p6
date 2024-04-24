@@ -10,7 +10,6 @@ function layoutUpdate() {
             modify.classList.add('visible');
             button.classList.add('hidden');
             log.textContent = "Logout";
-            log.classList.add('Log');
             editMode.classList.add('visible');
 
         } else {
@@ -85,7 +84,6 @@ async function fetchCategories() {
 
     const response = await fetch("http://localhost:5678/api/categories");
     const categories = await response.json();
-
     return categories;
 }
 
