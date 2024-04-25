@@ -140,6 +140,7 @@ function openModale() {
 function closeModale() {
     modale.classList.add("hidden");
     body.classList.remove("backgroundGrey");
+    emptyForm();
 
 }
 
@@ -265,7 +266,13 @@ buttonModal.addEventListener('click', function () {
     secondPage.appendChild(arrowPrevious);
     modale.appendChild(secondPage);
 })
-
+// fonction pour vider le formulaire
+function emptyForm() {
+    document.getElementById('title').value = '';
+    document.getElementById('categorie').value = '';
+    const rectangle = document.querySelector(".rectangle");
+    rectangle.innerHTML = '';
+}
 
 /////envoi d'un nouveau projet au backend /////////
 
@@ -346,6 +353,7 @@ buttonValidate.addEventListener("click", async function () {
             createWorkElement(responseData);
             createWorkElementInModal(responseData);
             alert("Projet ajouté");
+            emptyForm();
         } else {
             console.error('Erreur lors de l\'envoi des données:', response.statusText);
         }
