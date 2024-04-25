@@ -15,11 +15,9 @@ function layoutUpdate() {
         } else {
             console.error("élément introuvable");
         }
-    } else {
-        console.log("Vous n'êtes pas connecté");
     }
 };
-document.addEventListener('DOMContentLoaded', layoutUpdate);
+
 
 //logout function
 const log = document.querySelector(".Log");
@@ -32,10 +30,7 @@ log.addEventListener('click', function logout() {
 
 
 //fonction pour récupérer les works depuis le backend
-// et pour retourner la réponse sous format json
 let Works;
-
-
 async function fetchWorksFromApi() {
     const response = await fetch("http://localhost:5678/api/works");
     const works = await response.json();
@@ -126,7 +121,6 @@ async function displayWorksByCategory(category) {
 
 //////////////modale///////////////////
 
-//variables pour la modale 
 const modale = document.getElementById("modale");
 const buttonModal = document.querySelector(".buttonModal");
 const titleModal = document.querySelector(".modal_title");
@@ -217,7 +211,6 @@ function deleteWork(event) {
                 if (!response.ok) {
                     console.log("le delete n'a pas fonctionné");
                 } else {
-                    console.log("le delete a fonctionné");
                     const workElement = document.getElementById(`work_${id}`);
                     if (workElement) {
                         workElement.remove();
@@ -228,10 +221,7 @@ function deleteWork(event) {
                     const modalWorkElement = document.getElementById(`modal_work_${id}`);
                     if (modalWorkElement) {
                         modalWorkElement.remove();
-
-                        // Mettre à jour Works en supprimant le travail avec l'ID correspondant
                         Works = Works.filter((work) => (work.id != id));
-
                     } else {
                         console.error("travail non trouvé dans la modale");
                     }
@@ -275,33 +265,6 @@ buttonModal.addEventListener('click', function () {
     secondPage.appendChild(arrowPrevious);
     modale.appendChild(secondPage);
 })
-// création du menu déroulant et des boutons pour les catégories
-
-document.addEventListener("DOMContentLoaded", function () {
-    const modalCategorie = document.getElementById("categorie");
-    let selectedCategorie = document.getElementById("selectedCategory");
-    console.log(selectedCategorie);
-    fetchCategories().then(categories => {
-        categories.forEach(category => {
-            let option = document.createElement("option");
-            option.value = category.id;
-            option.textContent = category.name;
-            modalCategorie.appendChild(option);
-        });
-        createAllWorksButton();
-        categories.forEach(categorie => {
-            const button = document.createElement("button");
-            button.textContent = categorie.name;
-            button.classList.add("button");
-            buttonContainer.appendChild(button);
-            button.addEventListener("click", () => {
-                displayWorksByCategory(categorie);
-            }
-            )
-
-        });
-    });
-});
 
 
 /////envoi d'un nouveau projet au backend /////////
@@ -380,7 +343,6 @@ buttonValidate.addEventListener("click", async function () {
 
         if (response.ok) {
             const responseData = await response.json();
-            console.log("La requête a fonctionné", responseData);
             createWorkElement(responseData);
             createWorkElementInModal(responseData);
             alert("Projet ajouté");
@@ -428,3 +390,30 @@ function createWorkElementInModal(workData) {
 
 }
 
+// création du menu déroulant et des boutons pour les catégories
+
+document.addEventListener("DOMContentLoaded", function () {
+    layoutUpdate();
+    const modalCategorie = document.getElementById("categorie");
+    let selectedCategorie = document.getElementById("selectedCategory");
+    fetchCategories().then(categories => {
+        categories.forEach(category => {
+            let option = document.createElement("option");
+            option.value = category.id;
+            option.textContent = category.name;
+            modalCategorie.appendChild(option);
+        });
+        createAllWorksButton();
+        categories.forEach(categorie => {
+            const button = document.createElement("button");
+            button.textContent = categorie.name;
+            button.classList.add("button");
+            buttonContainer.appendChild(button);
+            button.addEventListener("click", () => {
+                displayWorksByCategory(categorie);
+            }
+            )
+
+        });
+    });
+});
