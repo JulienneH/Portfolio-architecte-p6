@@ -81,19 +81,24 @@ async function fetchCategories() {
     const categories = await response.json();
     return categories;
 }
-
+const allButton = document.createElement("button");
 // bouton "tout"
 function createAllWorksButton() {
     const buttonContainer = document.getElementById("buttonContainer");
-    const allButton = document.createElement("button");
     allButton.textContent = "Tout";
-    allButton.classList.add("button");
+    allButton.classList.add("button", "button_selected");
     buttonContainer.appendChild(allButton);
     allButton.addEventListener("click", () => {
+        document.querySelectorAll(".button").forEach(btn => {
+            btn.classList.remove("button_selected");
+        });
+        allButton.classList.add("button_selected");
         const worksContainer = document.getElementById("worksContainer");
         worksContainer.innerHTML = "";
-        displayWorks();
+
+        displayWorks()
     });
+
 }
 
 async function displayWorksByCategory(category) {
@@ -438,7 +443,13 @@ document.addEventListener("DOMContentLoaded", function () {
             button.classList.add("button");
             buttonContainer.appendChild(button);
             button.addEventListener("click", () => {
+                document.querySelectorAll(".button").forEach(btn => {
+                    btn.classList.remove("button_selected");
+                });
+                button.classList.add("button_selected");
                 displayWorksByCategory(categorie);
+
+
             }
             )
 

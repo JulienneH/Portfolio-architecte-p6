@@ -324,10 +324,11 @@ footer {
 	text-align: center;
 }
 
-.button:hover {
+
+
+.button_selected {
 	background-color: #1D6154;
 	color: white;
-	cursor: pointer;
 }
 
 /*log in page */
