@@ -246,21 +246,38 @@ buttonModal.addEventListener('click', function () {
 
     //Ajouter le fichier selectionné dans le rectangle de la 2nd page de la modale
     const rectangle = document.querySelector(".rectangle");
+    const erreur = document.querySelector(".erreur");
     imageFormat = document.querySelector(".image_format");
     const imageInput = document.getElementById('image');
     imageInput.addEventListener('change', function (event) {
         const file = event.target.files[0];
         if (file) {
-            const reader = new FileReader();
-            reader.onload = function () {
-                const imageUrl = reader.result;
-                const imageElement = document.createElement('img');
-                imageElement.src = imageUrl;
-                imageElement.classList.add('modal_image');
-                imageFormat.innerHTML = '';
-                rectangle.appendChild(imageElement);
-            };
-            reader.readAsDataURL(file);
+            if (file.size <= 4 * 1024 * 1024) {
+                if (file.type === 'image/png' || file.type === 'image/jpeg') {
+                    const reader = new FileReader();
+                    reader.onload = function () {
+                        const imageUrl = reader.result;
+                        const imageElement = document.createElement('img');
+                        imageElement.src = imageUrl;
+                        imageElement.classList.add('modal_image');
+                        rectangle.appendChild(imageElement);
+                        erreur.innerHTML = "";
+                    };
+                    reader.readAsDataURL(file);
+                }
+                else {
+                    erreur.innerHTML = "Format du fichier incorrect";
+                    event.target.value = '';
+                    checkFormValidity();
+                }
+            }
+            else {
+                erreur.innerHTML = "Le fichier ne doit pas dépasser 4mo";
+                event.target.value = '';
+                checkFormValidity();
+            }
+
+
         }
     });
     secondPage.appendChild(arrowPrevious);
@@ -270,8 +287,10 @@ buttonModal.addEventListener('click', function () {
 function emptyForm() {
     document.getElementById('title').value = '';
     document.getElementById('categorie').value = '';
+    document.getElementById('image').value = '';
     const rectangle = document.querySelector(".rectangle");
     rectangle.innerHTML = '';
+
 }
 
 /////envoi d'un nouveau projet au backend /////////
@@ -354,6 +373,7 @@ buttonValidate.addEventListener("click", async function () {
             createWorkElementInModal(responseData);
             alert("Projet ajouté");
             emptyForm();
+            checkFormValidity();
         } else {
             console.error('Erreur lors de l\'envoi des données:', response.statusText);
         }

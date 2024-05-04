@@ -653,3 +653,11 @@ select {
 	z-index: 222;
 	position: absolute;
 }
+
+.erreur {
+	position: absolute;
+	left: 27%;
+	margin-top: 220px;
+	font-weight: bold;
+
+}
